@@ -1,0 +1,31 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "echo",
+            "type": "shell",
+            "command": "bash scripts/tests.sh",
+            "problemMatcher": []
+        },
+        {
+            "label": "update_admin_interface",
+            "type": "shell",
+            "command": "bash scripts/update_admin_interface.sh",
+            "problemMatcher": []
+        },
+        {
+            "label": "makemigrations",
+            "type": "shell",
+            "command": "bash scripts/makemigrations.sh",
+            "problemMatcher": []
+        },
+        {
+            "label": "migrate",
+            "type": "shell",
+            "command": "bash scripts/migrate.sh",
+            "problemMatcher": []
+        }
+    ]
+}
