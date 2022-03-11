@@ -105,4 +105,6 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 STATIC_URL = 'static/'
+STATIC_ROOT = 'static'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
