@@ -3,8 +3,7 @@ from django.db import models
 
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import RegexValidator, EmailValidator
-from django.db import DEFAULT_DB_ALIAS, models
-from django.db.models.fields import DateField
+from django.db import models
 
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
@@ -24,6 +23,10 @@ class User(AbstractUser):
 
     name = models.CharField(_("Name"), blank=True, max_length=255, default="")
     email = models.EmailField(_("Email"), max_length=255, unique=True, validators=[EmailValidator,])
+    facebook = models.CharField(_("Facebook"), max_length=255, default=None, blank=True, null=True)
+    whatsapp = models.CharField(_("Whatsapp"), max_length=255, default=None, blank=True, null=True)
+    messenger = models.CharField(_("Whatsapp"), max_length=255, default=None, blank=True, null=True)
+    wilaya = models.CharField(_("Wilaya"), max_length=255, default=None, blank=True, null=True)
 
 
     is_admin = models.BooleanField(_("IsAdmin"), default=False)
@@ -33,15 +36,41 @@ class User(AbstractUser):
     REQUIRED_FIELDS = []
 
 
+    @property
+    def type(self):
+        if self.is_admin:
+            return "admin"
+        elif self.is_seller:
+            return "seller"
+        else:
+            return "unknown"
+
     class Meta:
         ordering = ["-created_at"]
         verbose_name = "User"
         verbose_name_plural = "Users"
 
+    def __str__(self):
+        return f"{self.pk} | {self.name}"
+
     def save(self, *args, **kwargs):
         if self.id:
             self.updated_at = timezone.now()
         return super().save(*args, **kwargs)
+
+    def update(self, validated_data):
+        fields = []
+
+        pw = validated_data.pop("password", False)
+        if pw:
+            self.set_password(pw)
+            fields.append("password")
+
+        for key, value in validated_data.items():
+            setattr(self, key, value)
+            fields.append("key")
+
+        self.save(update_fields=fields)
 
     def delete(self, *args, **kwargs):
         # Only set as deleted if it is not already deleted.
@@ -56,19 +85,6 @@ class User(AbstractUser):
             # if self.type != "unknown":
             #     getattr(self, self.type).delete()
 
-    def __str__(self):
-        return f"{self.pk} | {self.name}"
-
-    @property
-    def type(self):
-        if self.is_admin:
-            return "admin"
-        elif self.is_seller:
-            return "seller"
-        else:
-            return "unknown"
-
-
 def create_user(user_validated_data):
     password = user_validated_data.pop("password", False)
     user = User.objects.create(**user_validated_data)
@@ -77,16 +93,3 @@ def create_user(user_validated_data):
         user.set_password(password)
     user.save()
     return user
-
-
-def update_user(user, validated_data):
-    pw = validated_data.pop("password", False)
-    if pw:
-        user.set_password(pw)
-
-    for key, value in validated_data.items():
-        setattr(user, key, value)
-
-    user.save()
-    return user
-

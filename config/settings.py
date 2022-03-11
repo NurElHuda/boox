@@ -56,6 +56,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+AUTH_USER_MODEL = "boox_app.User"
+
 ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
@@ -104,5 +106,3 @@ AUTH_PASSWORD_VALIDATORS = [
 
 STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-AUTH_USER_MODEL = "boox_app.User"
