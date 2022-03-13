@@ -12,7 +12,6 @@ from pathlib import Path
 
 import environ
 import firebase_admin
-from firebase_admin import credentials
 
 ROOT_DIR = Path(__file__).resolve(strict=True).parent.parent
 
@@ -46,7 +45,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
-    'firebase_auth',
     'boox_app',
 ]
 
