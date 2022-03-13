@@ -1,44 +1,34 @@
-{% extends "boox_app/base.html" %}
-{% load static i18n %}
-
-{% block content %}
-<div class="container mt-3 ">
-  <div class="row ">
-    <div class="col d-flex justify-content-center  d-flex justify-content-center  ">
+{% extends "boox_app/base.html" %} {% load static i18n %} {% block content %}
+<div class="container mt-3">
+  <div class="row">
+    <div class="col-6 d-flex justify-content-center d-flex justify-content-center">
       <div class="card" style="width: 36rem; height: 50rem">
-        <img src="{% static 'boox_app/images/book-placeholder-small.png' %}"  style="width: 36rem; height: 50rem" class="card-img-top" alt="{% static 'boox_app/images/book-placeholder-small.png' %}" />
+        <img
+          src="{% static 'boox_app/images/book-placeholder-small.png' %}"
+          style="width: 36rem; height: 50rem"
+          class="card-img-top"
+          alt="{% static 'boox_app/images/book-placeholder-small.png' %}"
+        />
       </div>
     </div>
-    <div class="col container-fluid border">
-        <div class="row border">
-            <div class="col-12 d-flex justify-content-start mb-2 pb-3 ">
-              <h1>{{book.title|default:"Book's title should be here"}}</h1>
-            </div>
+    <div class="col-6 container-fluid d-flex">
+      <div class="row">
+        <div class="col-12 d-flex justify-content-start mb-2 pb-1">
+          <h1>{{book.title|default:"Book's title should be here"}}</h1>
         </div>
-        <div class="row border">
-            <div class="col d-flex justify-content-start mt-2 py-2 ">
-              <h5>{% trans "By" %}  {{book.author_name|default:"Book's author's name should be here"}}</h5>
-            </div>
+        <div class="col-12 d-flex justify-content-start mt-2 py-2">
+          <h5>{% trans "By" %} {{book.author_name|default:"Book's author's name should be here"}}</h5>
         </div>
-        <div class="row border">
-            <div class="col d-flex justify-content-start my-5 py-5 "></div>
+        <div class="col-12 d-flex justify-content-start my-5 py-5"></div>
+        <div class="col-12 d-flex justify-content-start my-1 py-1"><h5>View on Goodread</h5></div>
+        <div class="col-12 d-flex justify-content-start my-1 py-1">
+          <h5>{% trans "Wilaya" %} {{book.wilaya|default:"Book's wilaya should be here"}}</h5>
         </div>
-        <div class="row border">
-            <div class="col d-flex justify-content-start my-2 py-2 "><h5>View on Goodread</h5></div>
+        <div class="col-12 d-flex justify-content-start my-1 py-1">
+          <h5>{% trans "Contact the seller at" %}</h5>
         </div>
-        <div class="row border">
-            <div class="col d-flex justify-content-start my-2 py-2 ">
-              <h5>{% trans "Wilaya" %}  {{book.wilaya|default:"Book's wilaya should be here"}}</h5>
-            </div>
-        </div>
-        <div class="row border">
-            <div class="col d-flex justify-content-start my-2 py-2 ">
-              <h5>{% trans "Contact the seller at" %}</h5>
-            </div>
-        </div>
-        <div class="row flex-grow-1 ">
-            <div class="col d-flex justify-content-end my-2 py-2 "><h5>{{book.price|default:"Price not available"}}</h5></div>
-        </div>
+        <div class="col-12 d-flex flex-grow-1 justify-content-end my-1 py-1"><h5>{{book.price|default:"Price not available"}}</h5></div>
+      </div>
     </div>
   </div>
 </div>
