@@ -1,8 +1,14 @@
+
 from django.utils import timezone
-from django.views.generic.detail import DetailView
+from django.views.generic import DetailView, ListView
 
 from boox_app.models import Book
 
-class BookDetail(DetailView):
 
+class BookList(ListView):
+    model = Book
+    context_object_name = "books"
+
+
+class BookDetail(DetailView):
     model = Book

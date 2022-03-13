@@ -2,6 +2,7 @@ from django.db import models
 
 
 from django.db import models
+from django.urls import reverse
 
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
@@ -56,5 +57,7 @@ class Book(models.Model):
             self.deleted_at = timezone.now()
             self.save()
 
+    def get_absolute_url(self):
+        return reverse("book-detail", kwargs={"pk": self.pk})
 
 

@@ -1,0 +1,23 @@
+{% extends "boox_app/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container pt-5">
+  <div class="row my-5 gy-5">
+    {% for book in books %}
+        <div class="col-3 d-flex justify-content-center">
+          <a href="{{book.get_absolute_url}}">
+            <div class="card" style="width: 12rem; height: 17rem">
+              <img src="{% static 'boox_app/images/book-placeholder-small.png' %}"  style="width: 12rem; height: 17rem" class="card-img-top" alt="{% static 'boox_app/images/book-placeholder-small.png' %}" />
+              {% comment "" %}
+              <div class="card-img-overlay d-flex align-items-end px-2 py-0 m-0">
+                <h5 class="card-title">Card title</h5>
+              </div>
+              {% endcomment %}
+            </div>
+          </a>
+        </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

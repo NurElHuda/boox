@@ -1,0 +1,34 @@
+[
+  {
+    "model": "boox_app.User",
+    "pk": 1,
+    "fields": {
+      "name": "User 1",
+      "username": "user_one",
+      "email": "user_one@mail.com",
+      "wilaya": "Annaba",
+      "is_seller": true,
+      "is_admin": true
+    }
+  },
+  {
+    "model": "boox_app.User",
+    "pk": 2,
+    "fields": {
+      "name": "User 2",
+      "username": "user_two",
+      "email": "user_two@mail.com",
+      "wilaya": "Tlemcen",
+      "is_seller": true,
+      "is_admin": false
+    }
+  },
+  {
+    "model": "boox_app.Book",
+    "pk": 1,
+    "fields": {
+      "title": "Book number one",
+      "seller": 1
+    }
+  }
+]
