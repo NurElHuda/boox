@@ -12,3 +12,4 @@ class BookList(ListView):
 
 class BookDetail(DetailView):
     model = Book
+    context_object_name = "book"
