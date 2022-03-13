@@ -7,9 +7,12 @@
     https://docs.djangoproject.com/en/4.0/ref/settings/
 
 """
+import os
 from pathlib import Path
-import environ
 
+import environ
+import firebase_admin
+from firebase_admin import credentials
 
 ROOT_DIR = Path(__file__).resolve(strict=True).parent.parent
 
@@ -43,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
+    'firebase_auth',
     'boox_app',
 ]
 
@@ -108,3 +112,9 @@ STATIC_URL = 'static/'
 STATIC_ROOT = 'static'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+
+FIREBASE_SERVICE_ACCOUNT = os.path.join(
+    ROOT_DIR, "config", "boox-e1a40-firebase-adminsdk-g16dg-346c8e581a.json"
+)
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = FIREBASE_SERVICE_ACCOUNT
+firebase_admin.initialize_app()
