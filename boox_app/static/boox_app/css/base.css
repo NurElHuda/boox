@@ -1,0 +1,33 @@
+/*
+ * Globals
+ */
+
+
+/* Custom default button */
+.btn-outline-secondary,
+.btn-outline-secondary:hover,
+.btn-outline-secondary:focus {
+  background-color: #fff;
+  border-width: 2px;
+  border-color: #563d7c;
+  color: #563d7c;
+  text-shadow: none; /* Prevent inheritance from `body` */
+}
+
+.btn-secondary,
+.btn-secondary:hover,
+.btn-secondary:focus {
+  background-color: #563d7c;
+  text-shadow: none; /* Prevent inheritance from `body` */
+}
+
+.form-control:focus {
+  border-color: #563d7c;
+  border-width: 2px;
+  box-shadow: none;
+}
+.form-control:focus {
+  border-color: #563d7c;
+  border-width: 2px;
+  box-shadow: none;
+}
