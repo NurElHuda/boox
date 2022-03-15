@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
+    'crispy_forms',
     'boox_app',
 ]
 
@@ -116,3 +117,6 @@ FIREBASE_SERVICE_ACCOUNT = os.path.join(
 )
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = FIREBASE_SERVICE_ACCOUNT
 firebase_admin.initialize_app()
+
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
