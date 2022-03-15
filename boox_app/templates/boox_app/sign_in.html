@@ -2,7 +2,7 @@
 <div class="container flex-column ">
   <div class="row  d-flex justify-content-center">
     <div class="col col-md-6 col-lg-4">
-      <form>
+      <form method="post", action="{% url 'sign-in' %}">
         {% csrf_token %}
 
         <img class="mb-3" src="{% static 'boox_app/logo/logo_transparent.png'%}" alt="Boox logo" width="175" height="175" />
@@ -10,11 +10,11 @@
 
         <div class="row gy-2">
           <div class="form-floating">
-            <input type="email" class="form-control px-2" id="floatingInput" placeholder="name@example.com" />
+            <input type="email" name="email" class="form-control px-2" id="floatingInput" placeholder="name@example.com" />
             <label for="floatingInput" class="px-4">Email address</label>
           </div>
           <div class="form-floating">
-            <input type="password" class="form-control px-2" id="floatingPassword" placeholder="Password" />
+            <input type="password" name="password" class="form-control px-2" id="floatingPassword" placeholder="Password" />
             <label for="floatingPassword" class="px-4">Password</label>
           </div>
           <div class="mt-3">

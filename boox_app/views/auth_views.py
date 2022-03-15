@@ -21,12 +21,13 @@ class SignUpView(View):
 class SignInView(View):
 
     def get(self, request, *args, **kwargs):
-        form = SignInForm()
-
-        return render(request, "boox_app/sign_in.html", {'form': form})
+        return render(request, "boox_app/sign_in.html")
 
     def post(self, request, *args, **kwargs):
-        
+        print(request.POST)
+
+        return render(request, "boox_app/sign_in.html")
+
         return redirect("home")
 class SignOutView(View):
     pass
