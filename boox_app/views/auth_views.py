@@ -18,7 +18,7 @@ def validate_data(fields, data):
     for field_key in fields:
         field_value = data.get(field_key, "")
         if field_value in [None, ""]:
-            errors[field_key] =  f"{field_key} is required"
+            errors[field_key] =  f"{field_key.title()} is required"
 
         if field_key == "email" and field_value not in [None, ""] and not re.fullmatch(
             r"[^@]+@[^@]+\.[^@]+", field_value
@@ -37,17 +37,21 @@ class SignUpView(View):
     def post(self, request, *args, **kwargs):
         data, errors = validate_data(["name", "email", "password"], request.POST)
         if errors:
-            print("1.")
             for field, error in errors.items():
                 messages.error(request, error)
             return render(request, "boox_app/sign_up.html", {"errors": errors})
 
-        user = User.objects.create(
-            name=data["name"],
-            email=data["email"],
-            password=make_password(data["password"]),
-            is_seller=True,
-        )
+        try:
+            user = User.objects.get(email=data["email"])
+            errors["email"] = "Email already exists"
+        except User.DoesNotExist:
+            user = User.objects.create(
+                name=data["name"],
+                email=data["email"],
+                username=data["email"],
+                password=make_password(data["password"]),
+                is_seller=True,
+            )
 
         user = authenticate(email=data["email"], password=data["password"])
         return redirect("home")

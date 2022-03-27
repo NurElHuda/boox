@@ -22,7 +22,7 @@ class User(AbstractUser):
     ]
 
     name = models.CharField(_("Name"), blank=True, max_length=255, default="")
-    email = models.EmailField(_("Email"), max_length=255, unique=True, validators=[EmailValidator,])
+    email = models.EmailField(_("Email"), max_length=255, unique=True, validators=[EmailValidator(),])
     facebook = models.CharField(_("Facebook"), max_length=255, default=None, blank=True, null=True)
     whatsapp = models.CharField(_("Whatsapp"), max_length=255, default=None, blank=True, null=True)
     messenger = models.CharField(_("Whatsapp"), max_length=255, default=None, blank=True, null=True)
