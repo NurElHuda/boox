@@ -8,6 +8,7 @@
         <div class="col-3 d-flex justify-content-center">
           <a href="{{book.get_absolute_url}}">
             <div class="card" style="width: 12rem; height: 17rem">
+              {% comment %} <div style="width: 12rem; height: 17rem" class="card-img-top placeholder-glow"></div> {% endcomment %}
               <img src="{% static 'boox_app/images/book-placeholder-small.png' %}"  style="width: 12rem; height: 17rem" class="card-img-top" alt="{% static 'boox_app/images/book-placeholder-small.png' %}" />
               {% comment "" %}
               <div class="card-img-overlay d-flex align-items-end px-2 py-0 m-0">
