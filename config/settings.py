@@ -92,6 +92,9 @@ DATABASES = {
         "TEST": {"CHARSET": "utf8", "COLLATION": "utf8_general_ci",},
     }
 }
+
+AUTHENTICATION_BACKENDS = ["boox_app.middlewares.CustomAuthBackend"]
+
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -111,6 +114,7 @@ STATIC_URL = 'static/'
 STATIC_ROOT = 'static'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
 
 FIREBASE_SERVICE_ACCOUNT = os.path.join(
     ROOT_DIR, "config", "boox-e1a40-firebase-adminsdk-g16dg-346c8e581a.json"
