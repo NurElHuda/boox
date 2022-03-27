@@ -3,7 +3,7 @@ import re
 from boox_app.forms.auth_forms import SignInForm
 from boox_app.models import Book, User
 from django.contrib import messages
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.hashers import make_password
 from django.shortcuts import redirect, render
 from django.utils import timezone
@@ -53,7 +53,8 @@ class SignUpView(View):
                 is_seller=True,
             )
 
-        user = authenticate(email=data["email"], password=data["password"])
+        user = authenticate(request, email=data["email"], password=data["password"])
+        login(request, user)
         return redirect("home")
 
 
@@ -63,10 +64,10 @@ class SignInView(View):
         return render(request, "boox_app/sign_in.html")
 
     def post(self, request, *args, **kwargs):
-        data = validate_data(["email", "password"], request.POST)
-        user = authenticate(email=data["email"], password=data["password"])
-
+        data, errors = validate_data(["email", "password"], request.POST)
+        user = authenticate(request, email=data["email"], password=data["password"])
         if user:
+            login(request, user)
             messages.success(request, 'Login successfull')
             return redirect("home")
         else:
