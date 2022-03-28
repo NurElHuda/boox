@@ -1,0 +1,58 @@
+{% extends "boox_app/base.html" %} {% load static i18n %} {% block content %}
+<div class="container mt-3">
+  <div class="row">
+    <div class="col-6 d-flex justify-content-center d-flex justify-content-center">
+      <div class="card" style="width: 36rem; height: 50rem">
+        <img
+          src="{% static 'boox_app/images/book-placeholder-small.png' %}"
+          style="width: 36rem; height: 50rem"
+          class="card-img-top"
+          alt="{% static 'boox_app/images/book-placeholder-small.png' %}"
+        />
+      </div>
+    </div>
+    <div class="col-6 container-fluid d-flex">
+      <form  method="post", action="{% url 'book-creation' %}">
+        {% csrf_token %}
+        <div class="row">
+          <div class="col-12  mb-2 pb-1">
+            <div class="form-floating">
+              <input type="text" name="title" class="form-control px-2" id="floatingInput" placeholder="Title of the book" />
+              <label for="floatingInput" class="px-4">Title of the book</label>
+            </div>
+          </div>
+          <div class="col-12 mt-2 py-2">
+            <div class="form-floating">
+              <input type="text" name="author_name" class="form-control px-2" id="floatingInput" placeholder="Author of the book" />
+              <label for="floatingInput" class="px-4">Author of the book</label>
+            </div>
+          </div>
+          <div class="col-12 my-5 py-5"></div>
+          <div class="col-12 my-1 py-1">
+            <div class="form-floating">
+              <input type="text" name="goodread" class="form-control px-2" id="floatingInput" placeholder="GoodRead's link" />
+              <label for="floatingInput" class="px-4">GoodRead's link</label>
+            </div>
+          </div>
+          <div class="col-12 my-1 py-1">
+            <div class="form-floating">
+              <input type="text" name="wilaya" class="form-control px-2" id="floatingInput" placeholder="Which wilaya is the book now?" />
+              <label for="floatingInput" class="px-4">Which wilaya is the book now?</label>
+            </div>
+          </div>
+          <div class="col-12 my-1 py-1">
+            <h5>{% trans "Contact the seller at" %}</h5>
+          </div>
+          <div class="col-12 my-5 py-5"></div>
+          <div class="col-12 d-flex flex-grow-1 justify-content-end mb-1 mt-4 py-1">
+            <div class="form-floating">
+              <input type="text" name="wilaya" class="form-control px-2" id="floatingInput" placeholder="Selling price" />
+              <label for="floatingInput" class="px-4">Selling price</label>
+            </div>
+          </div>
+        </div> 
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
