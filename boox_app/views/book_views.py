@@ -17,7 +17,7 @@ class BookCreation(View):
         return render(request, "boox_app/book_creation.html")
 
     def post(self, request, *args, **kwargs):
-        fields = ["title", "author_name", "price", "goodread"]
+        fields = ["title", "author_name", "wilaya", "goodread", "price"]
         data, errors = validate_data(fields, request.POST)
         if errors:
             for field, error in errors.items():
