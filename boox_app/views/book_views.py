@@ -4,6 +4,7 @@ from django.utils import timezone
 from django.views import View
 from django.views.generic import DetailView, ListView
 from django.contrib import messages
+from boox_app.constants import REGIONS
 from boox_app.models import Book
 from boox_app.validators import validate_data
 
@@ -14,7 +15,7 @@ class BookList(ListView):
 
 class BookCreation(View):
     def get(self, request, *args, **kwargs):
-        return render(request, "boox_app/book_creation.html")
+        return render(request, "boox_app/book_creation.html", {"regions": REGIONS})
 
     def post(self, request, *args, **kwargs):
         fields = ["title", "author_name", "wilaya", "goodread", "price"]

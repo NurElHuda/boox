@@ -31,8 +31,14 @@
         </div>
         <div class="col-12 my-1 py-1">
           <div class="form-floating">
-            <input type="text" name="wilaya" class="form-control px-2  {% if 'wilaya' in errors %} is-invalid {% endif %}" id="floatingInput" placeholder="Which wilaya is the book now?" />
-            <label for="floatingInput" class="px-4">Which wilaya is the book now?</label>
+            <!-- <input type="text" name="wilaya" class="form-control px-2  {% if 'wilaya' in errors %} is-invalid {% endif %}" id="floatingInput"/> -->
+            <select name="wilaya" class="form-select  {% if 'wilaya' in errors %} is-invalid {% endif %} " id="selectWilaya" aria-label="Floating label select wilaya"  placeholder="Wilaya">
+              <option selected>Wilaya</option>
+              {% for region in regions %}
+              <option value="{{region.wilaya_code}}">{{region.wilaya_code}} - {{region.wilaya_name_ascii}}</option>
+              {% endfor %}
+            </select>
+            <!-- <label for="selectWilaya" class="px-4">Wilaya</label> -->
           </div>
         </div>
         <div class="col-12 my-1 py-1">
