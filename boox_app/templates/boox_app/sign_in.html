@@ -61,26 +61,10 @@
     </div>
     {% endcomment %}
   </div>
+
+  
   <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js";
-    import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-analytics.js";
-    import { getAuth, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js";
-
-    
-    const firebaseConfig = {
-      apiKey: "AIzaSyDjO4A9esoHDMxX63BxS-ur-syF47yXKvg",
-      authDomain: "boox-e1a40.firebaseapp.com",
-      projectId: "boox-e1a40",
-      storageBucket: "boox-e1a40.appspot.com",
-      messagingSenderId: "601669542280",
-      appId: "1:601669542280:web:f280f0d1db727d34f81a3d",
-      measurementId: "G-B9M91XQXPX"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const analytics = getAnalytics(app);
-    const provider = new GoogleAuthProvider();
-    const auth = getAuth();
+    {% include 'boox_app/snippets/firebase_auth_setup.html' %}
 
     document.getElementById("signInWithGoogleBtn").addEventListener("click", function(){
       signInWithPopup(auth, provider)
