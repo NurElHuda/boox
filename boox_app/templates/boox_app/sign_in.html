@@ -100,7 +100,16 @@
           console.log(error.code)
           console.log(error.message)
           // Simulate an HTTP redirect:
-          window.location.href = `/sign-up/?err=1&err_code=${error.code}&?err_message=${error.message}`;
+          //(error.code === "auth/email-already-exists") || 
+          if ((error.code === "auth/user-not-found")){
+            window.location.href = `/sign-up/?err=1&err_code=${error.code}&?err_message=${error.message}`;
+          }else{
+            document.getElementById("header").innerHTML = `
+              <div class="alert alert-danger fixed-top" role="alert">
+                  Error: ${error.message}
+              </div>            
+            `;
+          }
         });
     });
 
