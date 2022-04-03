@@ -93,14 +93,14 @@
           console.log()
           console.log()
           console.log(user)
-          con
         }).catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
           const email = error.email;
           const credential = GoogleAuthProvider.credentialFromError(error);
           console.log(error)
-          // redirect the error messge to GET /sign-in/
+          console.log(error.code)
+          console.log(error.message)
+          // Simulate an HTTP redirect:
+          window.location.href = `/sign-up/?err=1&err_code=${error.code}&?err_message=${error.message}`;
         });
     });
 

@@ -14,6 +14,9 @@ from boox_app.validators import validate_data
 
 class SignUpView(View):
     def get(self, request, *args, **kwargs):
+        if request.GET.get("err", None) and request.GET["err"] == '1':
+            print("1.")
+            messages.error(request, request.GET.get("err_code"))
         return render(request, "boox_app/sign_up.html")
 
     def post(self, request, *args, **kwargs):

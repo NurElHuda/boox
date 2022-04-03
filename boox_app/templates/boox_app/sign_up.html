@@ -2,7 +2,7 @@
 <div class="container flex-column ">
   <div class="row  d-flex justify-content-center">
     <div class="col col-md-6 col-lg-4">
-      <form method="post", action="{% url 'sign-up' %}">
+      <form method="post" action="{% url 'sign-up' %}">
         {% csrf_token %}
 
         <img class="mb-3" src="{% static 'boox_app/logo/logo_transparent.png'%}" alt="Boox logo" width="175" height="175" />

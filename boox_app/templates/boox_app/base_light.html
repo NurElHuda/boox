@@ -24,14 +24,15 @@
 </head>
 
 <body class="d-flex h-100 w-100 text-center text-dark bg-white ">
-
     <div class="container-fluid d-flex pb-3 m-auto flex-column h-100 w-100 justify-content-center ">
         <header class="">
+            {% if messages %}
             {% for message in messages %}
-            <div class="messages alert-{{ message.tags.0 }}">
+            <div class="alert alert-danger fixed-top" role="alert">
                 {{ message }}
             </div>
             {% endfor %}
+            {% endif %}
         </header>
 
         <main class="">
