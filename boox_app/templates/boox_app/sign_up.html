@@ -51,4 +51,42 @@
   </div>
    {% endcomment %}
 </div>
+
+
+<script type="module">
+  {% include 'boox_app/snippets/firebase_auth_setup.html' %}
+
+  document.getElementById("signUpWithGoogleBtn").addEventListener("click", function(){
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+        const user = result.user;
+        // redirect the email/googleToken to POST /sign-in/
+        console.log(credential)
+        console.log()
+        console.log()
+        console.log(user)
+      }).catch((error) => {
+        const email = error.email;
+        const credential = GoogleAuthProvider.credentialFromError(error);
+        console.log(error)
+        console.log(error.code)
+        console.log(error.message)
+        // Simulate an HTTP redirect:
+        //(error.code === "auth/email-already-exists") || 
+        if ((error.code === "auth/user-not-found")){
+          window.location.href = `/sign-up/?err=1&err_code=${error.code}&err_message=${error.message}`;
+        }else{
+          document.getElementById("header").innerHTML = `
+            <div class="alert alert-danger fixed-top" role="alert">
+                Error: ${error.message}
+            </div>            
+          `;
+        }
+      });
+  });
+
+</script>
+
 {% endblock %}
