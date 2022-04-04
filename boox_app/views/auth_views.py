@@ -3,7 +3,8 @@ import re
 # from boox_app.forms.auth_forms import SignInForm
 from boox_app.models import Book, User
 from django.contrib import messages
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import logout as dj_logout
 from django.contrib.auth.hashers import make_password
 from django.shortcuts import redirect, render
 from django.utils import timezone
@@ -61,4 +62,14 @@ class SignInView(View):
 
 
 class SignOutView(View):
-    pass
+
+    def logout(self, request):
+        dj_logout(request)
+        messages.success(request, 'Logout successfull. Sad to see you go.')
+        return redirect("home")
+
+    def get(self, request, *args, **kwargs):
+        return self.logout(request)
+
+    def post(self, request, *args, **kwargs):
+        return self.logout(request)
