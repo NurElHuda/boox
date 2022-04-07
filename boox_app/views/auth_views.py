@@ -1,16 +1,43 @@
-import re
-
 # from boox_app.forms.auth_forms import SignInForm
 from boox_app.models import Book, User
+from boox_app.validators import validate_data
 from django.contrib import messages
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login
+from django.contrib.auth import logout
 from django.contrib.auth import logout as dj_logout
 from django.contrib.auth.hashers import make_password
 from django.shortcuts import redirect, render
-from django.utils import timezone
 from django.views import View
-from django.views.generic import FormView
-from boox_app.validators import validate_data
+from firebase_admin.auth import verify_id_token
+
+
+def authenticate_with_google(firebase_id_token):
+    try:
+        credentials = verify_id_token(firebase_id_token)
+        print(credentials)
+    except Exception as ex:
+        print(f"ex: {ex}")
+        return None, "Authentication failed"
+    
+    try:
+        print(credentials)
+        user = User.objects.filter(email=credentials["email"])
+        return user, None
+    except User.DoesNotExist:
+        return None, "No account with this email"
+
+
+def login_succeeded(request, user):
+    login(request, user)
+    messages.success(request, 'Login successfull', extra_tags="success")
+    return redirect("home")
+
+
+def login_failed(request, error=None):
+    if not error:
+        error = 'Login failed: wrong email or password' 
+    messages.error(request, error)
+    return render(request, "boox_app/sign_in.html")
 
 
 class SignUpView(View):
@@ -50,15 +77,20 @@ class SignInView(View):
         return render(request, "boox_app/sign_in.html")
 
     def post(self, request, *args, **kwargs):
-        data, errors = validate_data(["email", "password"], request.POST)
+        data, errors = validate_data(["email", "password", "provider", "firebase_id_token"], request.POST)
+
         user = authenticate(request, email=data["email"], password=data["password"])
+        print(data)
         if user:
-            login(request, user)
-            messages.success(request, 'Login successfull', extra_tags="success")
-            return redirect("home")
+            return login_succeeded(request, user)
+        elif "provider" in data and data["provider"] == "google" and "firebase_id_token" in data:
+            user, error = authenticate_with_google(data["firebase_id_token"])
+            if user:
+                return login_succeeded(request, user)
+            else:
+                return login_failed(request, error)
         else:
-            messages.error(request, 'Login failed: wrong email or password')
-            return render(request, "boox_app/sign_in.html")
+            return login_failed(request)
 
 
 class SignOutView(View):

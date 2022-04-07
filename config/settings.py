@@ -130,6 +130,3 @@ FIREBASE_SERVICE_ACCOUNT = os.path.join(
 )
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = FIREBASE_SERVICE_ACCOUNT
 firebase_admin.initialize_app()
-
-
-CRISPY_TEMPLATE_PACK = "bootstrap4"

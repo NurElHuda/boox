@@ -81,10 +81,16 @@
 
     getRedirectResult(auth)
       .then((result) => {
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+        console.log(credential)
+
         var signUpForm = document.forms["signUp"];
         signUpForm.elements.name.value = result.user.displayName
         signUpForm.elements.email.value = result.user.email;
         signUpForm.elements.password.value = result.user.uid;
+        signUpForm.elements.firebase_id_token.value = result.accessToken;
+        signUpForm.elements.provider.value = "google";
         signUpForm.submit();
       }).catch((error) => {
         // Handle Errors here.

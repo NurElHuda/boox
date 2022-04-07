@@ -2,8 +2,9 @@
 <div class="container flex-column ">
   <div class="row  d-flex justify-content-center">
     <div class="col col-md-6 col-lg-4">
-      <form method="post" action="{% url 'sign-in' %}">
+      <form method="post" action="{% url 'sign-in' %}" name="signIn" id="signIn">
         {% csrf_token %}
+        <input type="hidden" name="provider" value="manual">
 
         <img class="mb-3" src="{% static 'boox_app/logo/logo_transparent.png'%}" alt="Boox logo" width="175"
           height="175" />
@@ -11,13 +12,11 @@
 
         <div class="row gy-2">
           <div class="form-floating">
-            <input type="email" name="email" class="form-control px-2" id="email"
-              placeholder="name@example.com" />
+            <input type="email" name="email" class="form-control px-2" id="email" placeholder="name@example.com" />
             <label for="email" class="px-4">Email address</label>
           </div>
           <div class="form-floating">
-            <input type="password" name="password" class="form-control px-2" id="password"
-              placeholder="Password" />
+            <input type="password" name="password" class="form-control px-2" id="password" placeholder="Password" />
             <label for="password" class="px-4">Password</label>
           </div>
           <div class="mt-3">
@@ -62,43 +61,45 @@
     {% endcomment %}
   </div>
 
-  
+
   <script type="module">
     {% include 'boox_app/snippets/firebase_auth_setup.html' %}
 
-    document.getElementById("signInWithGoogleBtn").addEventListener("click", function(){
-      signInWithPopup(auth, provider)
-        .then((result) => {
-          const credential = GoogleAuthProvider.credentialFromResult(result);
-          const token = credential.accessToken;
-          const user = result.user;
-          // redirect the email/googleToken to POST /sign-in/
-          console.log(credential)
-          console.log()
-          console.log()
-          console.log(user)
-
-          // document.getElementById("email").value = 
-          // document.getElementById("password").value = 
-          // document.forms[0].submit()
-
-        }).catch((error) => {
-          const email = error.email;
-          const credential = GoogleAuthProvider.credentialFromError(error);
-          console.log(error)
-          console.log(error.code)
-          console.log(error.message)
-          if ((error.code === "auth/user-not-found")){
-            window.location.href = `/sign-up/?err=1&err_code=${error.code}&err_message=${error.message}`;
-          }else{
-            document.getElementById("header").innerHTML = `
-              <div class="alert alert-danger fixed-top" role="alert">
-                  Error: ${error.message}
-              </div>            
-            `;
-          }
-        });
+    document.getElementById("signInWithGoogleBtn").addEventListener("click", function () {
+      signInWithRedirect(auth, provider);
     });
+
+    getRedirectResult(auth)
+      .then((result) => {
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+        console.log(credential)
+
+        var signUpForm = document.forms["signIn"];
+        signUpForm.elements.email.value = result.user.email;
+        signUpForm.elements.password.value = result.user.uid;
+        signUpForm.elements.provider.value = "google";
+
+        
+        var firebaseIdTokenElement = document.createElement("input");
+        firebaseIdTokenElement.setAttribute("type", "hidden");
+        firebaseIdTokenElement.setAttribute("name", "firebase_id_token");
+        firebaseIdTokenElement.setAttribute("value", credential.idToken);
+        signUpForm.appendChild(firebaseIdTokenElement);
+
+        signUpForm.submit();
+        // TODO: verify that the email exist first.
+      }).catch((error) => {
+        // Handle Errors here.
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        // The email of the user's account used.
+        const email = error.email;
+        // The AuthCredential type that was used.
+        const credential = GoogleAuthProvider.credentialFromError(error);
+        console.log(error)
+        // TODO: handel errors.
+      });
 
   </script>
   {% endblock %}
