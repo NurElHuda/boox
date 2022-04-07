@@ -1,0 +1,16 @@
+{% if messages %}
+{% for message in messages %}
+<div class="alert {% if message.tags %} alert-{{message.tags}} {% endif %}  fixed-top" role="alert">
+    {{ message }}
+</div>
+{% endfor %}
+{% endif %}
+
+<script>
+setTimeout(function() {
+    alerts = document.getElementsByClassName("alert");
+    for (item of alerts){
+        item.style.display = "none";
+    }
+}, 4000);
+</script>

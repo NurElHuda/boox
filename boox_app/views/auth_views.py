@@ -54,7 +54,7 @@ class SignInView(View):
         user = authenticate(request, email=data["email"], password=data["password"])
         if user:
             login(request, user)
-            messages.success(request, 'Login successfull')
+            messages.success(request, 'Login successfull', extra_tags="success")
             return redirect("home")
         else:
             messages.error(request, 'Login failed: wrong email or password')
