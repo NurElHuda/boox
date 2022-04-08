@@ -72,8 +72,6 @@
     getRedirectResult(auth)
       .then((result) => {
         const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential.accessToken;
-        console.log(credential)
 
         var signUpForm = document.forms["signIn"];
         signUpForm.elements.email.value = result.user.email;
@@ -96,8 +94,8 @@
         // The email of the user's account used.
         const email = error.email;
         // The AuthCredential type that was used.
-        const credential = GoogleAuthProvider.credentialFromError(error);
-        console.log(error)
+        // const credential = GoogleAuthProvider.credentialFromError(error);
+        // console.log(error)
         // TODO: handel errors.
       });
 
