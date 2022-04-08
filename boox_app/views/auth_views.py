@@ -12,18 +12,23 @@ from firebase_admin.auth import verify_id_token
 
 
 def authenticate_with_google(firebase_id_token):
+    print(firebase_id_token)
+    print("1.0")
     try:
+        print("1.1")
         credentials = verify_id_token(firebase_id_token)
         print(credentials)
     except Exception as ex:
-        print(f"ex: {ex}")
+        print(f"ex: {repr(ex)}")
+        print("1.1.1")
         return None, "Authentication failed"
     
     try:
-        print(credentials)
+        print("1.2")
         user = User.objects.filter(email=credentials["email"])
         return user, None
     except User.DoesNotExist:
+        print("1.2.1")
         return None, "No account with this email"
 
 
@@ -86,6 +91,8 @@ class SignInView(View):
         elif "provider" in data and data["provider"] == "google" and "firebase_id_token" in data:
             user, error = authenticate_with_google(data["firebase_id_token"])
             if user:
+                print(user)
+                print(error)
                 return login_succeeded(request, user)
             else:
                 return login_failed(request, error)

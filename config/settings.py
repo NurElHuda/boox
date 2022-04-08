@@ -125,8 +125,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 MESSAGE_STORAGE = "django.contrib.messages.storage.cookie.CookieStorage"
 
-FIREBASE_SERVICE_ACCOUNT = os.path.join(
-    ROOT_DIR, "config", "boox-e1a40-firebase-adminsdk-g16dg-346c8e581a.json"
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = os.path.join(
+    ROOT_DIR, "config", "boox-e1a40-firebase-adminsdk.json"
 )
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = FIREBASE_SERVICE_ACCOUNT
 firebase_admin.initialize_app()

@@ -3,17 +3,22 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.10/firebas
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-analytics.js";
 import { getAuth, signInWithPopup, signInWithRedirect, getRedirectResult, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js";
 
-const firebaseConfig = {
+const app = initializeApp({
     apiKey: "AIzaSyDjO4A9esoHDMxX63BxS-ur-syF47yXKvg",
-    authDomain: "boox-e1a40.firebaseapp.com",
-    projectId: "boox-e1a40",
-    storageBucket: "boox-e1a40.appspot.com",
-    messagingSenderId: "601669542280",
-    appId: "1:601669542280:web:f280f0d1db727d34f81a3d",
-    measurementId: "G-B9M91XQXPX"
-};
 
-const app = initializeApp(firebaseConfig);
+    authDomain: "boox-e1a40.firebaseapp.com",
+  
+    projectId: "boox-e1a40",
+  
+    storageBucket: "boox-e1a40.appspot.com",
+  
+    messagingSenderId: "601669542280",
+  
+    appId: "1:601669542280:web:6a764a5d0e3d89a2f81a3d",
+  
+    measurementId: "G-PJBXDC559V"
+  
+});
 const analytics = getAnalytics(app);
 const provider = new GoogleAuthProvider();
 const auth = getAuth();

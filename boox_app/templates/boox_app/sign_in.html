@@ -82,9 +82,10 @@
         var firebaseIdTokenElement = document.createElement("input");
         firebaseIdTokenElement.setAttribute("type", "hidden");
         firebaseIdTokenElement.setAttribute("name", "firebase_id_token");
-        firebaseIdTokenElement.setAttribute("value", credential.idToken);
+        firebaseIdTokenElement.setAttribute("value", result.user.getToken());
         signUpForm.appendChild(firebaseIdTokenElement);
 
+        console.log(result)
         signUpForm.submit();
         // TODO: verify that the email exist first.
       }).catch((error) => {
