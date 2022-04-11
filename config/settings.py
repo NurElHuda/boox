@@ -16,6 +16,7 @@ import firebase_admin
 ROOT_DIR = Path(__file__).resolve(strict=True).parent.parent
 
 APPS_DIR = ROOT_DIR
+BASE_DIR = os.path.join(ROOT_DIR, "boox_app")
 env = environ.Env()
 env.read_env(str(ROOT_DIR / ".env"))
 
@@ -25,6 +26,7 @@ DEBUG = env.bool("DJANGO_DEBUG", False)
 LOCAL = env.bool("DJANGO_LOCAL", False)
 SECRET_KEY = env("DJANGO_SECRET_KEY")
 IS_PRODUCTION = ENV == "PRODUCTION"
+BASE_URL=env("BASE_URL")
 
 USE_TZ = True
 TIME_ZONE = "Africa/Algiers"
@@ -43,14 +45,17 @@ INSTALLED_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
+    "whitenoise.runserver_nostatic",  
     "django.contrib.staticfiles",
+    "drf_yasg",
+    "rest_framework",
     "django_extensions",
-    # "crispy_forms",
     "boox_app",
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",    
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -129,3 +134,30 @@ os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = os.path.join(
     ROOT_DIR, "config", "boox-e1a40-firebase-adminsdk.json"
 )
 firebase_admin.initialize_app()
+
+REST_FRAMEWORK = {
+    "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.IsAuthenticated"],
+    "DEFAULT_PAGINATION_CLASS": "kawarir_app.paginators.CustomPagination",
+    "DEFAULT_SCHEMA_CLASS": "rest_framework.schemas.coreapi.AutoSchema",
+    "DEFAULT_PARSER_CLASSES": (
+        "rest_framework.parsers.JSONParser",
+        "rest_framework.parsers.FormParser",
+        "rest_framework.parsers.MultiPartParser",
+    ),
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework.authentication.BasicAuthentication",
+        "rest_framework.authentication.SessionAuthentication",
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ),
+    "DEFAULT_FILTER_BACKENDS": (
+        "django_filters.rest_framework.DjangoFilterBackend",
+        "rest_framework.filters.SearchFilter",
+        "rest_framework.filters.OrderingFilter",
+    ),
+}
+
+MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
+MEDIA_URL = "/media/"
+BOOK_COVERS_PATH = os.path.join(MEDIA_ROOT, "book_covers")
+BOOK_COVERS_URL = f"{BASE_URL}{MEDIA_URL}book_covers"
+print(BASE_URL)
