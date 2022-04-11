@@ -6,6 +6,8 @@ from django.views.generic.base import RedirectView
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 
+from config.settings import MEDIA_ROOT, MEDIA_URL
+
 
 schema_view = get_schema_view(
     openapi.Info(title="Boox API", default_version="v1", description="",),
@@ -23,4 +25,4 @@ urlpatterns = [
         schema_view.with_ui("swagger", cache_timeout=0),
         name="schema-swagger-ui",
     )
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

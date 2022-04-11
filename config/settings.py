@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
+    "corsheaders",
     "whitenoise.runserver_nostatic",  
     "django.contrib.staticfiles",
     "drf_yasg",
@@ -55,6 +56,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",    
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -124,8 +126,15 @@ DATABASES = {
     }
 }
 
-STATIC_URL = "static/"
 STATIC_ROOT = "static"
+STATIC_URL = "static/"
+
+
+MEDIA_ROOT = f"{ROOT_DIR}/media"
+MEDIA_URL = "/media/"
+BOOK_COVERS_PATH = os.path.join(MEDIA_ROOT, "book_covers")
+BOOK_COVERS_URL = f"{MEDIA_URL}book_covers"
+
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 MESSAGE_STORAGE = "django.contrib.messages.storage.cookie.CookieStorage"
@@ -156,7 +165,4 @@ REST_FRAMEWORK = {
     ),
 }
 
-MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
-MEDIA_URL = "/media/"
-BOOK_COVERS_PATH = os.path.join(MEDIA_ROOT, "book_covers")
-BOOK_COVERS_URL = f"{BASE_URL}{MEDIA_URL}book_covers"
+CORS_ALLOW_ALL_ORIGINS = True
