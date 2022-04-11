@@ -46,3 +46,11 @@
   z-index:9999; 
   border-radius:0px
 }
+
+.purple-dashed-border{
+  border: 5px dashed #563d7c !important;
+}
+
+.red-dashed-border{
+  border: 5px dashed red !important;
+}

@@ -160,4 +160,3 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
 MEDIA_URL = "/media/"
 BOOK_COVERS_PATH = os.path.join(MEDIA_ROOT, "book_covers")
 BOOK_COVERS_URL = f"{BASE_URL}{MEDIA_URL}book_covers"
-print(BASE_URL)

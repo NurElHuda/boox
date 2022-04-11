@@ -46,6 +46,8 @@ class BookDetail(DetailView):
 
 
 class BookCover(APIView):
+    authentication_classes = []
+    permission_classes = []
 
     @swagger_auto_schema(
         manual_parameters=[
