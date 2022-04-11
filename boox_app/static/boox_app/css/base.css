@@ -54,3 +54,7 @@
 .red-dashed-border{
   border: 5px dashed red !important;
 }
+
+.highlight-drop{
+  background-color: rgb(86, 61, 124, 0.15);
+}

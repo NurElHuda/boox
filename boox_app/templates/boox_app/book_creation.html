@@ -108,10 +108,12 @@
   }
   function highlight(e) {
     dropArea.classList.add('highlight')
+    dropArea.classList.add('highlight-drop')
   }
-
+  
   function unhighlight(e) {
-    dropArea.classList.remove('highlight')
+    dropArea.classList.remove('highlight');
+    dropArea.classList.remove('highlight-drop');
   }
 
   function handleDrop(e) {
