@@ -14,7 +14,6 @@ from firebase_admin.auth import verify_id_token
 def authenticate_with_google(firebase_id_token):
     try:
         credentials = verify_id_token(firebase_id_token)
-        print(f"cred: {credentials}")
     except Exception as ex:
         return None, "Authentication failed"
     
@@ -80,7 +79,6 @@ class SignInView(View):
             return login_succeeded(request, user)
         elif "provider" in data and data["provider"] == "google" and "firebase_id_token" in data:
             user, error = authenticate_with_google(data["firebase_id_token"])
-            print(f"u: {user}")
             if user:
                 return login_succeeded(request, user)
             else:
