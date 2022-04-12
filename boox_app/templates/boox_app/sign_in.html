@@ -72,17 +72,11 @@
     });
     getRedirectResult(auth)
       .then((result) => {
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        // console.log();
-
-
-        console.log("1.")
         result.user.getIdToken().then((token) => {
           var signUpForm = document.forms["signIn"];
           signUpForm.elements.email.value = result.user.email;
           signUpForm.elements.password.value = result.user.uid;
           signUpForm.elements.provider.value = "google";
-
 
           var firebaseIdTokenElement = document.createElement("input");
           firebaseIdTokenElement.setAttribute("type", "hidden");

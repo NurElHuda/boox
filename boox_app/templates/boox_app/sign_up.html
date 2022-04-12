@@ -4,6 +4,7 @@
     <div class="col col-md-6 col-lg-4">
       <form method="post" action="{% url 'sign-up' %}" name="signUp">
         {% csrf_token %}
+        <input type="hidden" name="provider" value="manual">
 
         <a href="/">
         <img class="mb-3" src="{% static 'boox_app/logo/logo_transparent.png'%}" alt="Boox logo" width="175"
@@ -83,17 +84,20 @@
 
     getRedirectResult(auth)
       .then((result) => {
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential.accessToken;
-        console.log(credential)
+        result.user.getIdToken().then((token) => {
+          var signUpForm = document.forms["signUp"];
+          signUpForm.elements.name.value = result.user.displayName
+          signUpForm.elements.email.value = result.user.email;
+          signUpForm.elements.password.value = result.user.uid;
 
-        var signUpForm = document.forms["signUp"];
-        signUpForm.elements.name.value = result.user.displayName
-        signUpForm.elements.email.value = result.user.email;
-        signUpForm.elements.password.value = result.user.uid;
-        signUpForm.elements.firebase_id_token.value = result.accessToken;
-        signUpForm.elements.provider.value = "google";
-        signUpForm.submit();
+          var firebaseIdTokenElement = document.createElement("input");
+          firebaseIdTokenElement.setAttribute("type", "hidden");
+          firebaseIdTokenElement.setAttribute("name", "firebase_id_token");
+          firebaseIdTokenElement.setAttribute("value", token);
+          signUpForm.appendChild(firebaseIdTokenElement);
+          signUpForm.elements.provider.value = "google";
+          signUpForm.submit();
+        })
       }).catch((error) => {
         // Handle Errors here.
         const errorCode = error.code;
