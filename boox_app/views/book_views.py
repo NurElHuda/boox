@@ -22,7 +22,7 @@ from rest_framework.views import APIView
 class BookList(ListView):
     model = Book
     context_object_name = "books"
-
+    paginate_by = 15
 
 class BookCreation(View):
     def get(self, request, *args, **kwargs):

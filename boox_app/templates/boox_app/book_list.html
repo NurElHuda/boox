@@ -2,27 +2,50 @@
 {% load static %}
 
 {% block content %}
-<div class="container pt-5 ">
-  <div class="row my-5 gy-5 ">
-    {% for book in books %}
-        <div class="col-3 d-flex justify-content-center">
-          <a href="{{book.get_absolute_url}}">
-            <div class="card" style="width: 12rem; height: 17rem">
-              {% comment %} <div style="width: 12rem; height: 17rem" class="card-img-top placeholder-glow"></div> {% endcomment %}
-              {% if book.cover and book.cover != '' %}
-              <img src="{{book.cover}}"  style="width: 12rem; height: 17rem" class="card-img-top" alt="{% static 'boox_app/images/book-placeholder-small.png' %}" />
-              {% else %}
-              <img src="{% static 'boox_app/images/book-placeholder-small.png' %}"  style="width: 12rem; height: 17rem" class="card-img-top" alt="{% static 'boox_app/images/book-placeholder-small.png' %}" />
-              {% endif %}
-              {% comment "" %}
-              <div class="card-img-overlay d-flex align-items-end px-2 py-0 m-0">
-                <h5 class="card-title">Card title</h5>
-              </div>
-              {% endcomment %}
-            </div>
-          </a>
+{{page_obj}}
+<div class="container pt-5 border">
+  <div class="row my-5 gy-5 border">
+    {% for book in page_obj %}
+    <div class="col-3 d-flex justify-content-center">
+      <a href="{{book.get_absolute_url}}">
+        <div class="card" style="width: 12rem; height: 17rem">
+          {% comment %} <div style="width: 12rem; height: 17rem" class="card-img-top placeholder-glow"></div> {%
+          endcomment %}
+          {% if book.cover and book.cover != '' %}
+          <img src="{{book.cover}}" style="width: 12rem; height: 17rem" class="card-img-top"
+            alt="{% static 'boox_app/images/book-placeholder-small.png' %}" />
+          {% else %}
+          <img src="{% static 'boox_app/images/book-placeholder-small.png' %}" style="width: 12rem; height: 17rem"
+            class="card-img-top" alt="{% static 'boox_app/images/book-placeholder-small.png' %}" />
+          {% endif %}
+          {% comment "" %}
+          <div class="card-img-overlay d-flex align-items-end px-2 py-0 m-0">
+            <h5 class="card-title">Card title</h5>
+          </div>
+          {% endcomment %}
         </div>
+      </a>
+    </div>
     {% endfor %}
+  </div>
+  <div>
+    <div class="pagination">
+      <span class="step-links">
+        {% if page_obj.has_previous %}
+        <a href="?page=1">&laquo; first</a>
+        <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+          Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">next</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+      </span>
+    </div>
   </div>
 </div>
 {% endblock %}
