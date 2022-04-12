@@ -2,8 +2,8 @@
 {% load static %}
 
 {% block content %}
-<div class="container pt-5">
-  <div class="row my-5 gy-5">
+<div class="container pt-5 ">
+  <div class="row my-5 gy-5 ">
     {% for book in books %}
         <div class="col-3 d-flex justify-content-center">
           <a href="{{book.get_absolute_url}}">

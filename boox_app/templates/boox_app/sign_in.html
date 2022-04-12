@@ -6,8 +6,10 @@
         {% csrf_token %}
         <input type="hidden" name="provider" value="manual">
 
-        <img class="mb-3" src="{% static 'boox_app/logo/logo_transparent.png'%}" alt="Boox logo" width="175"
-          height="175" />
+        <a href="/">
+          <img class="mb-3" src="{% static 'boox_app/logo/logo_transparent.png'%}" alt="Boox logo" width="175"
+            height="175" />
+        </a>
         <h1 class="h5 mt-4 mb-4">Sign in via email</h1>
 
         <div class="row gy-2">
@@ -68,25 +70,28 @@
     document.getElementById("signInWithGoogleBtn").addEventListener("click", function () {
       signInWithRedirect(auth, provider);
     });
-
     getRedirectResult(auth)
       .then((result) => {
         const credential = GoogleAuthProvider.credentialFromResult(result);
+        // console.log();
 
-        var signUpForm = document.forms["signIn"];
-        signUpForm.elements.email.value = result.user.email;
-        signUpForm.elements.password.value = result.user.uid;
-        signUpForm.elements.provider.value = "google";
 
-        
-        var firebaseIdTokenElement = document.createElement("input");
-        firebaseIdTokenElement.setAttribute("type", "hidden");
-        firebaseIdTokenElement.setAttribute("name", "firebase_id_token");
-        firebaseIdTokenElement.setAttribute("value", result.user.getToken());
-        signUpForm.appendChild(firebaseIdTokenElement);
+        console.log("1.")
+        result.user.getIdToken().then((token) => {
+          var signUpForm = document.forms["signIn"];
+          signUpForm.elements.email.value = result.user.email;
+          signUpForm.elements.password.value = result.user.uid;
+          signUpForm.elements.provider.value = "google";
 
-        console.log(result)
-        signUpForm.submit();
+
+          var firebaseIdTokenElement = document.createElement("input");
+          firebaseIdTokenElement.setAttribute("type", "hidden");
+          firebaseIdTokenElement.setAttribute("name", "firebase_id_token");
+          firebaseIdTokenElement.setAttribute("value", token);
+          signUpForm.appendChild(firebaseIdTokenElement);
+
+          signUpForm.submit();
+        })
         // TODO: verify that the email exist first.
       }).catch((error) => {
         // Handle Errors here.

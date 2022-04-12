@@ -52,7 +52,7 @@
 }
 
 .red-dashed-border{
-  border: 5px dashed red !important;
+  border: 5px dashed #dc3545 !important;
 }
 
 .highlight-drop{

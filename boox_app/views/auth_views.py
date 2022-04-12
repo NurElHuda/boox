@@ -12,23 +12,16 @@ from firebase_admin.auth import verify_id_token
 
 
 def authenticate_with_google(firebase_id_token):
-    print(firebase_id_token)
-    print("1.0")
     try:
-        print("1.1")
         credentials = verify_id_token(firebase_id_token)
-        print(credentials)
+        print(f"cred: {credentials}")
     except Exception as ex:
-        print(f"ex: {repr(ex)}")
-        print("1.1.1")
         return None, "Authentication failed"
     
     try:
-        print("1.2")
-        user = User.objects.filter(email=credentials["email"])
+        user = User.objects.get(email=credentials["email"])
         return user, None
     except User.DoesNotExist:
-        print("1.2.1")
         return None, "No account with this email"
 
 
@@ -41,14 +34,13 @@ def login_succeeded(request, user):
 def login_failed(request, error=None):
     if not error:
         error = 'Login failed: wrong email or password' 
-    messages.error(request, error)
+    messages.error(request, error, extra_tags="danger")
     return render(request, "boox_app/sign_in.html")
 
 
 class SignUpView(View):
     def get(self, request, *args, **kwargs):
         if request.GET.get("err", None) and request.GET["err"] == '1':
-            print("1.")
             messages.error(request, request.GET.get("err_code"))
         return render(request, "boox_app/sign_up.html")
 
@@ -76,7 +68,6 @@ class SignUpView(View):
         return redirect("home")
 
 
-
 class SignInView(View):
     def get(self, request, *args, **kwargs):
         return render(request, "boox_app/sign_in.html")
@@ -85,14 +76,12 @@ class SignInView(View):
         data, errors = validate_data(["email", "password", "provider", "firebase_id_token"], request.POST)
 
         user = authenticate(request, email=data["email"], password=data["password"])
-        print(data)
         if user:
             return login_succeeded(request, user)
         elif "provider" in data and data["provider"] == "google" and "firebase_id_token" in data:
             user, error = authenticate_with_google(data["firebase_id_token"])
+            print(f"u: {user}")
             if user:
-                print(user)
-                print(error)
                 return login_succeeded(request, user)
             else:
                 return login_failed(request, error)
