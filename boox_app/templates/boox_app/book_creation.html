@@ -5,11 +5,15 @@
     <input type="hidden" name="cover" value="" id="cover">
     <div class="row my-4 gy-4">
       <div class="col-sm-12 col-md-6">
-        <div class="w-100 h-100 d-flex justify-content-center px-2 purple-dashed-border" id="dropArea">
+        <div class="w-100 h-100 d-flex justify-content-center px-2 {% if 'cover' in errors %} red-dashed-border {% else %} purple-dashed-border {% endif %}" id="dropArea">
           <div class="vstack gap-5 m-auto d-flex align-items-center">
             <input type="file" id="fileElem" multiple accept="image/*" onchange="handleFiles(this.files)"
               style="display: none;">
-            <div class="h6 my-2" id="dropAreaText"> Drop a picture of the cover here</div>
+            {% if 'cover' in errors %}
+            <div class="h6 my-2" id="dropAreaText">Cover is required</div>
+            {% else %}
+            <div class="h6 my-2" id="dropAreaText">Drop a picture of the cover here</div>
+            {% endif %}
             <svg viewBox="0 0 100.4 100.4" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" width="150px"
               height="150px" id="bookSvg">
               <path
@@ -68,7 +72,7 @@
           <div class="col-12 my-5 py-4"></div>
           <div class="col-12 d-flex justify-content-sm-center justify-content-md-end">
             <div class="form-floating">
-              <input type="text" name="wilaya" class="form-control {% if 'price' in errors %} is-invalid {% endif %}"
+              <input type="number" name="price" class="form-control {% if 'price' in errors %} is-invalid {% endif %}"
                 id="floatingInput" placeholder="Selling price" />
               <label for="floatingInput" class="px-4">Selling price</label>
             </div>
@@ -129,6 +133,9 @@
   }
 
   function handleDrop(e) {
+    dropArea.classList.add("purple-dashed-border")
+    dropArea.classList.remove("red-dashed-border")
+
     let dt = e.dataTransfer
     let files = dt.files
 

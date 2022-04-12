@@ -26,6 +26,7 @@ class Book(models.Model):
     title = models.CharField(_("Title"), blank=True, max_length=255, default="")
     cover = models.CharField(_("Cover"), blank=True, max_length=512, default="")
     author_name = models.CharField(_("Author's name"), blank=True, max_length=255, default="")
+    wilaya = models.CharField(_("Wilaya"), blank=True, max_length=255, default="")
     price = models.IntegerField(_("Price"), default=0)
     goodread = models.CharField(_("Goodread"), max_length=255, default=None, blank=True, null=True)
 

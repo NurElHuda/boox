@@ -32,9 +32,9 @@ class BookCreation(View):
         fields = ["title", "author_name", "cover", "wilaya", "goodread", "price"]
         data, errors = validate_data(fields, request.POST)
         if errors:
-            for field, error in errors.items():
-                messages.error(request, error)
-            return render(request, "boox_app/book_creation.html", {"errors": errors})
+            # for field, error in errors.items():
+            #     messages.error(request, error, extra_tags="danger")
+            return render(request, "boox_app/book_creation.html", {"errors": errors, "regions": REGIONS})
 
         obj = Book.objects.create(**data, seller=request.user)
         return redirect("book-detail", pk=obj.pk)
