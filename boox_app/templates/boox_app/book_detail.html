@@ -3,9 +3,9 @@
   <div class="row my-4 gy-4">
     <div class="col-sm-12 col-md-6">
       <div
-        class="w-100 h-100 d-flex justify-content-center px-2 book-black-border"
+        class="w-100 h-90 d-flex justify-content-center"
         id="dropArea">
-        <div class="vstack gap-5 m-auto d-flex align-items-center">
+        <div class="m-auto d-flex align-items-center">
           <svg viewBox="0 0 100.4 100.4" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" width="150px"
             height="375px" id="bookSvg">
             <path
@@ -21,17 +21,17 @@
     <div class="col-sm-12 col-md-6 d-flex">
       <div class="row ">
         <div class="col-12 d-flex justify-content-start mb-2 pb-1">
-          <h1>{{book.title|default:"Book's title should be here"}}</h1>
+          <h1>{{book.title|default:""}}</h1>
         </div>
         <div class="col-12 d-flex justify-content-start mt-2 py-2">
-          <h5>{% trans "By" %} {{book.author_name|default:"Book's author's name should be here"}}</h5>
+          <h5>{% trans "By" %} {{book.author_name|default:""}}</h5>
         </div>
         <div class="col-12 d-flex justify-content-start my-5 py-4"></div>
         <div class="col-12 d-flex justify-content-start my-1 py-1">
           <h5>View on Goodread</h5>
         </div>
         <div class="col-12 d-flex justify-content-start my-1 py-1">
-          <h5>{% trans "Wilaya" %} {{book.wilaya|default:"Book's wilaya should be here"}}</h5>
+          <h5>{{book.wilaya|default:""}}</h5>
         </div>
         <div class="col-12 d-flex justify-content-start my-1 py-1">
           <h5>{% trans "Contact the seller at" %}</h5>
