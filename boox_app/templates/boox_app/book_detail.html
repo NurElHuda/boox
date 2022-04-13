@@ -2,9 +2,7 @@
 <div class="container my-3">
   <div class="row my-4 gy-4">
     <div class="col-sm-12 col-md-6">
-      <div
-        class="w-100 h-90 d-flex justify-content-center"
-        id="dropArea">
+      <div class="w-100 h-90 d-flex justify-content-center" id="dropArea">
         <div class="m-auto d-flex align-items-center">
           <svg viewBox="0 0 100.4 100.4" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" width="150px"
             height="375px" id="bookSvg">
@@ -27,9 +25,12 @@
           <h5>{% trans "By" %} {{book.author_name|default:""}}</h5>
         </div>
         <div class="col-12 d-flex justify-content-start my-5 py-4"></div>
-        <div class="col-12 d-flex justify-content-start my-1 py-1">
-          <h5>View on Goodread</h5>
+        {% if book.goodreads and book.goodreads != '' %}
+        <div class="col-12 d-flex justify-content-start align-items-end my-1 py-1  "> 
+            <h5 class=""> View on  </h5>
+            <a href="{{book.goodreads}}" target="_" ><img  class=" mx-3" width="150" src="{% static 'boox_app/images/goodreads.png' %}" /></a>
         </div>
+        {% endif %}
         <div class="col-12 d-flex justify-content-start my-1 py-1">
           <h5>{{book.wilaya|default:""}}</h5>
         </div>
