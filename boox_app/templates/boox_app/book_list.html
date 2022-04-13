@@ -1,16 +1,16 @@
 {% extends "boox_app/base.html" %}
-{% load static %}
+{% load static boox_filters %}
 
 {% block content %}
-{{page_obj}}
-<div class="container pt-5 border">
-  <div class="row my-5 gy-5 border">
+<div class="container border align-items-start">
+  <div class="row my-5">
     {% for book in page_obj %}
-    <div class="col-3 d-flex justify-content-center">
+    <div class="col-3 mb-5 py-2 d-flex justify-content-center ">
       <a href="{{book.get_absolute_url}}">
         <div class="card" style="width: 12rem; height: 17rem">
-          {% comment %} <div style="width: 12rem; height: 17rem" class="card-img-top placeholder-glow"></div> {%
-          endcomment %}
+          {% comment %} 
+          <div style="width: 12rem; height: 17rem" class="card-img-top placeholder-glow "></div> 
+          {% endcomment %}
           {% if book.cover and book.cover != '' %}
           <img src="{{book.cover}}" style="width: 12rem; height: 17rem" class="card-img-top"
             alt="{% static 'boox_app/images/book-placeholder-small.png' %}" />
@@ -28,23 +28,29 @@
     </div>
     {% endfor %}
   </div>
-  <div>
-    <div class="pagination">
-      <span class="step-links">
-        {% if page_obj.has_previous %}
-        <a href="?page=1">&laquo; first</a>
-        <a href="?page={{ page_obj.previous_page_number }}">previous</a>
-        {% endif %}
-
-        <span class="current">
-          Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-        </span>
-
-        {% if page_obj.has_next %}
-        <a href="?page={{ page_obj.next_page_number }}">next</a>
-        <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
-        {% endif %}
-      </span>
+  <div class="row">
+    <div class="col">
+        <nav aria-label="Page navigation example">
+          <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+            <li class="page-item">
+              <a class="page-link border-0 p-2" href="?page={{ page_obj.previous_page_number }}">
+                <svg width="25px" height="25px" fill="#563d7c" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><defs><style>.cls-1{fill:none;}</style></defs><title/><g data-name="Layer 2" id="Layer_2"><path d="M20,25a1,1,0,0,1-.71-.29l-8-8a1,1,0,0,1,0-1.42l8-8a1,1,0,1,1,1.42,1.42L13.41,16l7.3,7.29a1,1,0,0,1,0,1.42A1,1,0,0,1,20,25Z"/></g><g id="frame"><rect class="cls-1" height="32" width="32"/></g></svg>
+              </a>
+            </li>
+            {% endif %}
+            {% for page in page_obj.paginator.page_range %}
+            <li class="page-item border-0"><a class="page-link border-0 fs-5 purple-text {% if page == page_obj.number %} fw-bolder {% endif %}" href="?page={{page}}">{{page}}</a></li>
+            {% endfor %}
+            {% if page_obj.has_next %}
+            <li class="page-item">
+              <a class="page-link border-0 p-2" href="?page={{ page_obj.next_page_number }}">
+                <svg  width="25px" height="25px" fill="#563d7c" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><defs><style>.cls-1{fill:none;}</style></defs><title/><g data-name="Layer 2" id="Layer_2"><path d="M12,25a1,1,0,0,1-.71-.29,1,1,0,0,1,0-1.42L18.59,16l-7.3-7.29a1,1,0,1,1,1.42-1.42l8,8a1,1,0,0,1,0,1.42l-8,8A1,1,0,0,1,12,25Z"/></g><g id="frame"><rect class="cls-1" height="32" width="32"/></g></svg>
+              </a>
+            </li>
+            {% endif %}
+          </ul>
+        </nav>
     </div>
   </div>
 </div>

@@ -17,12 +17,21 @@ from rest_framework import exceptions
 from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from django.core.paginator import Paginator
 
 
-class BookList(ListView):
+class BookList(View):
     model = Book
     context_object_name = "books"
-    paginate_by = 15
+    paginate_by = 5
+
+    def get(self, request, *args, **kwargs):
+        books = Book.objects.all()
+
+        paginator = Paginator(books, 5)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number) 
+        return render(request, "boox_app/book_list.html", {"page_obj": page_obj})
 
 class BookCreation(View):
     def get(self, request, *args, **kwargs):

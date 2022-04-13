@@ -30,5 +30,45 @@
       "title": "Book number one",
       "seller": 1
     }
+  },
+  {
+    "model": "boox_app.Book",
+    "pk": 1,
+    "fields": {
+      "title": "Book number 2",
+      "seller": 1
+    }
+  },
+  {
+    "model": "boox_app.Book",
+    "pk": 1,
+    "fields": {
+      "title": "Book number 3",
+      "seller": 1
+    }
+  },
+  {
+    "model": "boox_app.Book",
+    "pk": 1,
+    "fields": {
+      "title": "Book number 4",
+      "seller": 1
+    }
+  },
+  {
+    "model": "boox_app.Book",
+    "pk": 1,
+    "fields": {
+      "title": "Book number 5",
+      "seller": 1
+    }
+  },
+  {
+    "model": "boox_app.Book",
+    "pk": 1,
+    "fields": {
+      "title": "Book number 6",
+      "seller": 1
+    }
   }
 ]

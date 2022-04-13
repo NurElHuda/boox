@@ -22,7 +22,7 @@
 <body class="d-flex h-100 text-center text-dark bg-white">
     <div class="container-fluid d-flex w-100 h-100 p-3 mx-auto flex-column ">
 
-        <header class="mb-auto container">
+        <header class="mb-auto container min-h-15">
             {% include 'boox_app/snippets/alerts.html' %}
     
             <div class="text-dark">
@@ -46,7 +46,7 @@
             {% block content %}{% endblock %}
         </main>
 
-        <footer class="mt-auto text-dark-50">
+        <footer class="mt-auto text-dark-50 min-h-15">
             {% comment %}
             <p>
                 Cover template for <a href="https://getbootstrap.com/" class="text-dark">Bootstrap</a>, by

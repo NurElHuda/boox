@@ -58,3 +58,11 @@
 .highlight-drop{
   background-color: rgb(86, 61, 124, 0.15);
 }
+
+.min-h-15{
+  min-height: 15%;
+}
+
+.purple-text, .purple-text:hover{
+  color: #563d7c;
+}
