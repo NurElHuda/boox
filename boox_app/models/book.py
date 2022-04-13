@@ -29,6 +29,8 @@ class Book(models.Model):
     wilaya = models.CharField(_("Wilaya"), blank=True, max_length=255, default="")
     price = models.IntegerField(_("Price"), default=0)
     goodreads = models.CharField(_("Goodread"), max_length=255, default=None, blank=True, null=True)
+    messenger = models.CharField(_("Messenger"), max_length=255, default=None, blank=True, null=True)
+    whatsup = models.CharField(_("Whatsup"), max_length=255, default=None, blank=True, null=True)
 
 
     class Meta:

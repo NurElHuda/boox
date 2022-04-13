@@ -26,17 +26,67 @@
         </div>
         <div class="col-12 d-flex justify-content-start my-5 py-4"></div>
         {% if book.goodreads and book.goodreads != '' %}
-        <div class="col-12 d-flex justify-content-start align-items-end my-1 py-1  "> 
-            <h5 class=""> View on  </h5>
-            <a href="{{book.goodreads}}" target="_" ><img  class=" mx-3" width="150" src="{% static 'boox_app/images/goodreads.png' %}" /></a>
+        <div class="col-12 d-flex justify-content-start align-items-center  my-1 py-1  ">
+          <h5 class="align-middle"> View on </h5>
+          <a href="{{book.goodreads}}" target="_"><img class=" mx-3" width="140"
+              src="{% static 'boox_app/images/goodreads.png' %}" /></a>
         </div>
         {% endif %}
         <div class="col-12 d-flex justify-content-start my-1 py-1">
           <h5>{{book.wilaya|default:""}}</h5>
         </div>
-        <div class="col-12 d-flex justify-content-start my-1 py-1">
-          <h5>{% trans "Contact the seller at" %}</h5>
+        {% if book.messenger and book.messenger != '' or book.whatsup and book.whatsup != '' %}
+        <div class="col-12 d-flex justify-content-start align-items-center my-1 py-1 ">
+          <h5 class="align-middle">{% trans "Contact the seller at" %}</h5>
+          {% if book.messenger and book.messenger != '' %}
+          <span class=" mx-3">
+            <a href="{{book.messenger}}" target="_"><svg height="52px" width="52px"
+                style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" xml:space="preserve"
+                xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <g id="_x38_3-facebook">
+                  <g>
+                    <g>
+                      <path
+                        d="M434.949,16.75H77.045c-32.893,0-59.648,26.831-59.648,59.812v358.871     c0,32.985,26.756,59.816,59.648,59.816h357.904c32.898,0,59.654-26.831,59.654-59.816V76.563     C494.604,43.581,467.848,16.75,434.949,16.75L434.949,16.75z M434.949,16.75"
+                        style="fill:#1B80E4;" />
+                      <path
+                        d="M420.039,256h-74.564v-59.813c0-16.51,13.365-14.951,29.824-14.951h29.83v-74.768h-59.654     c-49.42,0-89.473,40.162-89.473,89.719V256h-59.65v74.766h59.65V495.25h89.473V330.766h44.738L420.039,256z M420.039,256"
+                        style="fill:#FCFCFC;" />
+                    </g>
+                  </g>
+                </g>
+                <g id="Layer_1" />
+              </svg></a>
+          </span>
+          {% endif %}
+          {% if book.messenger and book.messenger != '' and book.whatsup and book.whatsup != '' %}
+          <h5>{% trans "or" %}</h5>
+          {% endif %}
+          {% if book.whatsup and book.whatsup != '' %}
+          <span class=" mx-3">
+            <a href="{{book.whatsup}}" target="_">
+              <svg height="52px" width="52px" style="enable-background:new 0 0 512 512;" version="1.1"
+                viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink">
+                <g id="_x31_3-whatsapp">
+                  <g>
+                    <g>
+                      <path
+                        d="M256.063,16.75h-0.125C124.379,16.75,17.397,124.051,17.397,256     c0,52.336,16.819,100.848,45.422,140.232l-29.732,88.873l91.716-29.394c37.725,25.063,82.731,39.538,131.26,39.538     c131.559,0,238.541-107.335,238.541-239.25C494.604,124.083,387.621,16.75,256.063,16.75L256.063,16.75z M256.063,16.75"
+                        style="fill:#5ACF5F;" />
+                      <path
+                        d="M394.896,354.596c-5.758,16.304-28.604,29.817-46.824,33.771     c-12.473,2.657-28.754,4.785-83.568-18.006c-70.125-29.127-115.28-100.575-118.795-105.21     c-3.375-4.637-28.336-37.827-28.336-72.165c0-34.331,17.386-51.052,24.398-58.223c5.751-5.897,15.267-8.583,24.394-8.583     c2.954,0,5.606,0.146,7.997,0.267c7.008,0.302,10.524,0.717,15.151,11.813c5.756,13.909,19.77,48.239,21.445,51.771     c1.701,3.53,3.396,8.311,1.012,12.945c-2.24,4.788-4.205,6.91-7.725,10.975c-3.521,4.073-6.865,7.182-10.381,11.544     c-3.219,3.798-6.859,7.867-2.801,14.896c4.055,6.879,18.07,29.812,38.707,48.235c26.641,23.775,48.229,31.372,55.957,34.604     c5.756,2.395,12.615,1.822,16.816-2.663c5.34-5.774,11.938-15.342,18.645-24.759c4.771-6.76,10.795-7.599,17.119-5.208     c6.441,2.244,40.531,19.143,47.541,22.641c7.006,3.529,11.635,5.203,13.334,8.165     C400.652,324.361,400.652,338.271,394.896,354.596L394.896,354.596z M394.896,354.596"
+                        style="fill:#FCFCFC;" />
+                    </g>
+                  </g>
+                </g>
+                <g id="Layer_1" />
+              </svg>
+            </a>
+          </span>
+          {% endif %}
         </div>
+        {% endif %}
         <div class="col-12 d-flex justify-content-start my-5 py-4"></div>
         <div class="col-12 d-flex justify-content-sm-center justify-content-md-end">
           <div class="form-floating">
