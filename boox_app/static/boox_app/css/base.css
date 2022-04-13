@@ -66,3 +66,11 @@
 .purple-text, .purple-text:hover{
   color: #563d7c;
 }
+
+.grey-hover-effect:hover{
+  background-color: #e9ecef;
+}
+
+a {
+  text-decoration: none !important;
+}
