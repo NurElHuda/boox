@@ -4,6 +4,10 @@
 
 
 /* Custom default button */
+html, body{
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
 .btn-outline-secondary,
 .btn-outline-secondary:hover,
 .btn-outline-secondary:focus {
