@@ -1,8 +1,8 @@
 {% extends "boox_app/base.html" %} {% load static i18n %} {% block content %}
 <div class="container my-3">
-  <div class="row my-4 gy-4">
-    <div class="col-sm-12 col-md-6">
-      <div class="w-100 h-90 d-flex justify-content-center" id="dropArea">
+  <div class="row my-4 gy-4 ">
+    <div class="col-sm-12 col-md-6 d-flex justify-content-center">
+      <div class="w-100 w-md-60 h-100 d-flex justify-content-center black-border " id="dropArea">
         <div class="m-auto d-flex align-items-center">
           <svg viewBox="0 0 100.4 100.4" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" width="150px"
             height="375px" id="bookSvg">
@@ -24,7 +24,7 @@
         <div class="col-12 d-flex justify-content-start mt-2 py-2">
           <h5>{% trans "By" %} {{book.author_name|default:""}}</h5>
         </div>
-        <div class="col-12 d-flex justify-content-start my-5 py-4"></div>
+        <div class="col-12 d-flex justify-content-start my-sm-0 my-md-5 py-4"></div>
         {% if book.goodreads and book.goodreads != '' %}
         <div class="col-12 d-flex justify-content-start align-items-center  my-1 py-1  ">
           <h5 class="align-middle"> View on </h5>
@@ -32,9 +32,11 @@
               src="{% static 'boox_app/images/goodreads.png' %}" /></a>
         </div>
         {% endif %}
+        {% if book.wilaya and book.wilaya != "" %}
         <div class="col-12 d-flex justify-content-start my-1 py-1">
           <h5>{{book.wilaya|default:""}}</h5>
         </div>
+        {% endif %}
         {% if book.messenger and book.messenger != '' or book.whatsup and book.whatsup != '' %}
         <div class="col-12 d-flex justify-content-start align-items-center my-1 py-1 ">
           <h5 class="align-middle">{% trans "Contact the seller at" %}</h5>
@@ -87,7 +89,7 @@
           {% endif %}
         </div>
         {% endif %}
-        <div class="col-12 d-flex justify-content-start my-5 py-4"></div>
+        <div class="col-12 d-flex justify-content-start my-sm-0 py-sm-0 my-md-5 py-md-4"></div>
         <div class="col-12 d-flex justify-content-sm-center justify-content-md-end">
           <div class="form-floating">
             <h5>{{book.price|default:"Price not available"}}</h5>

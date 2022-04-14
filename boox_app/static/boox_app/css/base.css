@@ -84,6 +84,33 @@ a {
   text-decoration: none !important;
 }
 
-.h-90{
+.h-90 {
   height: 90%;
+}
+
+.w-60 {
+  
+}
+
+.black-border {
+  border: 2px solid #000;
+}
+
+@media (min-width: 576px) {
+}
+
+@media (min-width: 768px) {
+  .w-md-60{
+    width: 60% !important;
+  }
+}
+
+@media (min-width: 992px) {
+}
+
+@media (min-width: 1200px) {
+}
+
+@media (min-width: 1400px) {
+
 }
