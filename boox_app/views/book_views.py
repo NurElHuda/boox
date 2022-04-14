@@ -23,12 +23,12 @@ from django.core.paginator import Paginator
 class BookList(View):
     model = Book
     context_object_name = "books"
-    paginate_by = 5
+    paginate_by = 8
 
     def get(self, request, *args, **kwargs):
         books = Book.objects.all()
 
-        paginator = Paginator(books, 5)
+        paginator = Paginator(books, self.paginate_by)
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number) 
         return render(request, "boox_app/book_list.html", {"page_obj": page_obj})

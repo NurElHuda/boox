@@ -2,27 +2,25 @@
 {% load static boox_filters %}
 
 {% block content %}
-<div class="container align-items-start">
+<div class="container align-items-start ">
   <div class="row my-5">
     {% for book in page_obj %}
-    <div class="col-3 mb-5 py-2 d-flex justify-content-center ">
+    <div class="col-3 mb-4 py-1 d-flex justify-content-center ">
       <a href="{{book.get_absolute_url}}">
-        <div class="card" style="width: 12rem; height: 17rem">
+        <div class="card" style="width: 10rem; height: 15rem">
           {% comment %} 
-          <div style="width: 12rem; height: 17rem" class="card-img-top placeholder-glow "></div> 
+          <div style="width: 10rem; height: 15rem" class="card-img-top placeholder-glow "></div> 
           {% endcomment %}
           {% if book.cover and book.cover != '' %}
-          <img src="{{book.cover}}" style="width: 12rem; height: 17rem" class="card-img-top"
+          <img src="{{book.cover}}" style="width: 10rem; height: 15rem" class="card-img-top"
             alt="{% static 'boox_app/images/book-placeholder-small.png' %}" />
           {% else %}
-          <img src="{% static 'boox_app/images/book-placeholder-small.png' %}" style="width: 12rem; height: 17rem"
+          <img src="{% static 'boox_app/images/book-placeholder-small.png' %}" style="width: 10rem; height: 15rem"
             class="card-img-top" alt="{% static 'boox_app/images/book-placeholder-small.png' %}" />
           {% endif %}
-          {% comment "" %}
-          <div class="card-img-overlay d-flex align-items-end px-2 py-0 m-0">
-            <h5 class="card-title">Card title</h5>
-          </div>
-          {% endcomment %}
+        </div>
+        <div class="d-flex align-items-end py-1 mt-1 text-dark text-break" style="width: 10rem;">
+          <h6 class="d-flex align-items-end text-dark text-break" style="width: 10rem; max-height: 3rem;">{{book.title|truncatechars:33}}</h6>
         </div>
       </a>
     </div>
