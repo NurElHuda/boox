@@ -18,8 +18,8 @@
     </div>
     <div class="col-sm-12 col-md-6 d-flex">
       <div class="row ">
-        <div class="col-12 d-flex justify-content-start mb-2 pb-1">
-          <h1>{{book.title|default:""}}</h1>
+        <div class="col-12 d-flex justify-content-start mb-2 pb-1 text-wrap w-100" >
+          <span class="text-break w-100 {% if book.title|length < 31 %}h1{% else %}h3{% endif %}">{{book.title|default:""}}</span>
         </div>
         <div class="col-12 d-flex justify-content-start mt-2 py-2">
           <h5>{% trans "By" %} {{book.author_name|default:""}}</h5>
