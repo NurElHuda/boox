@@ -5,7 +5,9 @@
     <input type="hidden" name="cover" value="" id="cover">
     <div class="row my-1 gy-1">
       <div class="col-sm-12 col-md-6 mb-sm-1 mb-md-0">
-        <div class="w-100 h-100 d-flex justify-content-center px-2 {% if 'cover' in errors %} red-dashed-border {% else %} purple-dashed-border {% endif %}" id="dropArea">
+        <div
+          class="w-100 h-100 d-flex justify-content-center px-2 {% if 'cover' in errors %} red-dashed-border {% else %} purple-dashed-border {% endif %}"
+          id="dropArea">
           <div class="vstack gap-5 m-auto d-flex align-items-center">
             <input type="file" id="fileElem" multiple accept="image/*" onchange="handleFiles(this.files)"
               style="display: none;">
@@ -31,39 +33,39 @@
           <div class="col-12  mb-2 pb-1">
             <div class="form-floating">
               <input type="text" name="title"
-                class="form-control px-2  {% if 'title' in errors %} is-invalid {% endif %}" id="floatingInput"
+                class="form-control px-2  {% if 'title' in errors %} is-invalid {% endif %} needs-validation" id="title"
                 placeholder="Title of the book" />
-              <label for="floatingInput" class="px-4">Title of the book</label>
+              <label for="title" class="px-4">Title of the book</label>
             </div>
           </div>
           <div class="col-12 mt-2 py-2">
             <div class="form-floating">
               <input type="text" name="author_name"
-                class="form-control px-2  {% if 'author_name' in errors %} is-invalid {% endif %}" id="floatingInput"
+                class="form-control px-2  {% if 'author_name' in errors %} is-invalid {% endif %}" id="author"
                 placeholder="Author of the book" />
-              <label for="floatingInput" class="px-4">Author of the book</label>
+              <label for="author" class="px-4">Author of the book</label>
             </div>
           </div>
           <div class="col-12 my-5 py-4"></div>
           <div class="col-12 my-1 py-1">
             <div class="form-floating">
-              <input type="text" name="goodread"
-                class="form-control px-2  {% if 'goodread' in errors %} is-invalid {% endif %}" id="floatingInput"
+              <input type="text" name="goodreads"
+                class="form-control px-2  {% if 'goodread' in errors %} is-invalid {% endif %}" id="goodreads"
                 placeholder="GoodReads link" />
-              <label for="floatingInput" class="px-4">GoodReads link</label>
+              <label for="goodreads" class="px-4">GoodReads link</label>
             </div>
           </div>
           <div class="col-12 my-1 py-1">
             <div class="form-floating">
               <!-- <input type="text" name="wilaya" class="form-control px-2  {% if 'wilaya' in errors %} is-invalid {% endif %}" id="floatingInput"/> -->
               <select name="wilaya" class="form-select {% if 'wilaya' in errors %} is-invalid {% endif %} "
-                id="selectWilaya" aria-label="Floating label select wilaya" placeholder="Wilaya">
+                 aria-label="Floating label select wilaya" placeholder="Wilaya" id="wilaya">
                 <option selected disabled></option>
                 {% for region in regions %}
                 <option value="{{region.wilaya_code}}">{{region.wilaya_code}} - {{region.wilaya_name_ascii}}</option>
                 {% endfor %}
               </select>
-              <label for="selectWilaya" class="px-4">Wilaya</label>
+              <label for="wilaya" class="px-4">Wilaya</label>
             </div>
           </div>
           <div class="col-12 my-1 py-1">
@@ -73,8 +75,8 @@
           <div class="col-12 d-flex justify-content-sm-center justify-content-md-end">
             <div class="form-floating">
               <input type="number" name="price" class="form-control {% if 'price' in errors %} is-invalid {% endif %}"
-                id="floatingInput" placeholder="Selling price" />
-              <label for="floatingInput" class="px-4">Selling price</label>
+                id="price" placeholder="Selling price" />
+              <label for="price" class="px-4">Selling price</label>
             </div>
           </div>
         </div>
@@ -89,6 +91,7 @@
 </div>
 
 <script>
+
   function updateSvgColor(svgElm, colorStr) {
     var children = svgElm.children;
     for (var i = 0; i < children.length; i++) {
@@ -161,7 +164,7 @@
 
   }
 
-  function appendCoverInfoToForm(data){
+  function appendCoverInfoToForm(data) {
     var cover = document.getElementById('cover');
     cover.value = data.file_path;
   }
@@ -177,7 +180,6 @@
       body: formData
     })
       .then((response) => {
-        console.log(response);
         if (response.status !== 200) {
           response.json().then(data => {
             setErrorCover(data.file)
@@ -187,7 +189,6 @@
         return response.json()
       })
       .then((data) => {
-        console.log(data)
         saveCoverInfo(data);
         appendCoverInfoToForm(data);
         setCoverImg(data)
@@ -213,5 +214,28 @@
 
   dropArea.addEventListener('drop', handleDrop, false)
 
+
+
+  function reValidate(){
+    console.log(this.value)
+    if (this.value && this.value !== ''){
+      this.classList.remove('is-invalid');
+    }
+
+    console.log(Number.isFinite(Number.parseFloat(this.value)))
+    if (Number.isFinite(Number.parseFloat(this.value))){
+      this.classList.remove('is-invalid');
+      console.log("1.")
+    }else{
+      this.classList.add('is-invalid')
+      console.log("2.")
+    }
+  }
+
+  ;['title', 'author', 'goodreads', 'wilaya', 'price'].forEach(elmId => {
+    var elm = document.getElementById(elmId);
+    console.log(elm);
+    elm.oninput = reValidate;
+  })
 </script>
 {% endblock %}
