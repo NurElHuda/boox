@@ -17,9 +17,13 @@ ROOT_DIR = Path(__file__).resolve(strict=True).parent.parent
 
 APPS_DIR = ROOT_DIR
 BASE_DIR = os.path.join(ROOT_DIR, "boox_app")
-env = environ.Env()
-env.read_env(str(ROOT_DIR / ".env"))
 
+env = environ.Env()
+
+ENV_FILE_PATH = f"{ROOT_DIR}/.env"
+if os.path.isfile(ENV_FILE_PATH):
+    env.read_env(f"{ROOT_DIR}/.env")
+    
 
 ENV = env("ENV")
 DEBUG = env.bool("DJANGO_DEBUG", False)
