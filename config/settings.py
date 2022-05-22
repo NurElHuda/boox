@@ -113,9 +113,10 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "config.wsgi.application"
+os.environ.get("DATABASE_URL")
 if env("HOST", default="LOCAL") == "DO":
     DATABASES = {
-        'default': env.db("DATABASE_URL")
+        'default': os.environ.get("DATABASE_URL")
     }
 else:
     DATABASES = {
