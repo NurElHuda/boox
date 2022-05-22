@@ -115,6 +115,9 @@ TEMPLATES = [
 WSGI_APPLICATION = "config.wsgi.application"
 if env("HOST", default="LOCAL") == "DO":
     DATABASES = {'default': env.db()}
+    DATABASES['default']['ENGINE'] =  'django.db.backends.postgresql_psycopg2'
+    DATABASES['default']['ATOMIC_REQUESTS'] =  True
+
 else:
     DATABASES = {
         "default": {
