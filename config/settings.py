@@ -118,6 +118,7 @@ if env("HOST", default="LOCAL") == "DO":
     DATABASES = {
         'default': os.environ.get("DATABASE_URL")
     }
+    DATABASES["default"]["ATOMIC_REQUESTS"] = True
 else:
     DATABASES = {
         "default": {
