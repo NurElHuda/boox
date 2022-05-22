@@ -113,29 +113,22 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "config.wsgi.application"
-print(os.environ.get("DATABASE_URL"))
-if env("HOST", default="LOCAL") == "DO":
-    DATABASES = {
-        'default': os.environ.get("DATABASE_URL")
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": env("DB_NAME"),
+        "USER": env("DB_USER"),
+        "PASSWORD": env("DB_PASSWORD"),
+        "HOST": env("DB_HOST"),
+        "PORT": "3306",
+        "ATOMIC_REQUESTS": True,
+        "OPTIONS": {"init_command": "SET sql_mode='STRICT_TRANS_TABLES'"},
+        "TEST": {
+            "CHARSET": "utf8",
+            "COLLATION": "utf8_general_ci",
+        },
     }
-    DATABASES["default"]["ATOMIC_REQUESTS"] = True
-else:
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.mysql",
-            "NAME": env("DB_NAME"),
-            "USER": env("DB_USER"),
-            "PASSWORD": env("DB_PASSWORD"),
-            "HOST": env("DB_HOST"),
-            "PORT": "3306",
-            "ATOMIC_REQUESTS": True,
-            "OPTIONS": {"init_command": "SET sql_mode='STRICT_TRANS_TABLES'"},
-            "TEST": {
-                "CHARSET": "utf8",
-                "COLLATION": "utf8_general_ci",
-            },
-        }
-    }
+}
 
 STATIC_ROOT = "static"
 STATIC_URL = "static/"
