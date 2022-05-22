@@ -115,14 +115,13 @@ TEMPLATES = [
 WSGI_APPLICATION = "config.wsgi.application"
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.mysql",
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
         "NAME": env("DB_NAME"),
         "USER": env("DB_USER"),
         "PASSWORD": env("DB_PASSWORD"),
         "HOST": env("DB_HOST"),
-        "PORT": "3306",
+        "PORT": "5432",
         "ATOMIC_REQUESTS": True,
-        "OPTIONS": {"init_command": "SET sql_mode='STRICT_TRANS_TABLES'"},
         "TEST": {
             "CHARSET": "utf8",
             "COLLATION": "utf8_general_ci",

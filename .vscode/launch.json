@@ -12,6 +12,15 @@
             "args": [
                 "runserver"
             ],
+            "env": {
+                "ENV": "LOCAL",
+                "DJANGO_SECRET_KEY": "YcOic2gnMDqt555X9Bn1QHy0A3iOLyIYsKGaBYK3PnMqcToUWt1R9bNDgsUo2xKG",
+                "BASE_URL": "127.0.0.1:8000",
+                "DB_NAME": "kutuub_testing",
+                "DB_USER": "nour_user",
+                "DB_PASSWORD": "password",
+                "DB_HOST": "localhost"
+            },
             "django": true
         }
     ]
