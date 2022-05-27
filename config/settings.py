@@ -113,27 +113,21 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "config.wsgi.application"
-if env("HOST", default="LOCAL") == "DO":
-    DATABASES = {'default': env.db()}
-    DATABASES['default']['ENGINE'] =  'django.db.backends.postgresql_psycopg2'
-    DATABASES['default']['ATOMIC_REQUESTS'] =  True
-
-else:
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.postgresql_psycopg2",
-            "NAME": env("DB_NAME"),
-            "USER": env("DB_USER"),
-            "PASSWORD": env("DB_PASSWORD"),
-            "HOST": env("DB_HOST"),
-            "PORT": env("DB_PORT", default="5432"),
-            "ATOMIC_REQUESTS": True,
-            "TEST": {
-                "CHARSET": "utf8",
-                "COLLATION": "utf8_general_ci",
-            },
-        }
+DATABASES = {
+    "default": {
+        "ENGINE": env("DB_ENGINE", default="django.db.backends.postgresql_psycopg2"),
+        "NAME": env("DB_NAME"),
+        "USER": env("DB_USER"),
+        "PASSWORD": env("DB_PASSWORD"),
+        "HOST": env("DB_HOST"),
+        "PORT": env("DB_PORT", default="5432"),
+        "ATOMIC_REQUESTS": True,
+        "TEST": {
+            "CHARSET": "utf8",
+            "COLLATION": "utf8_general_ci",
+        },
     }
+}
 
 STATIC_ROOT = "static"
 STATIC_URL = "static/"
