@@ -14,10 +14,6 @@ from firebase_admin.auth import verify_id_token
 def authenticate_with_google(firebase_id_token):
     try:
         credentials = verify_id_token(firebase_id_token)
-        print()
-        print()
-        print(credentials)
-        print()
     except Exception as ex:
         return None, "Authentication failed"
     
