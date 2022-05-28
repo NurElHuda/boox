@@ -11,6 +11,16 @@ from django.views import View
 from firebase_admin.auth import verify_id_token
 
 
+def create_user_from_google_auth(credentials):
+    return User.objects.create(
+            name=credentials["name"],
+            email=credentials["email"],
+            username=credentials["email"],
+            password=make_password(credentials["password"]),
+            is_seller=True,
+        )
+
+
 def authenticate_with_google(firebase_id_token):
     try:
         credentials = verify_id_token(firebase_id_token)
@@ -19,10 +29,10 @@ def authenticate_with_google(firebase_id_token):
     
     try:
         user = User.objects.get(email=credentials["email"])
-        return user, None
     except User.DoesNotExist:
-        user = User.objects.create(email=credentials["email"], name=credentials["name"])
-        return user, None
+        user = create_user_from_google_auth(credentials)
+
+    return user, None
 
 
 def login_succeeded(request, user):
