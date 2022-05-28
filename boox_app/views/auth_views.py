@@ -35,6 +35,27 @@ def authenticate_with_google(firebase_id_token):
     return user, None
 
 
+
+def authenticate_with_facebook(firebase_id_token):
+    print(firebase_id_token)
+    try:
+        credentials = verify_id_token(firebase_id_token)
+        print()
+        print()
+        print(credentials)
+        print()
+    except Exception as ex:
+        print(ex)
+        # return None, "Authentication failed"
+    
+    try:
+        user = User.objects.get(email=credentials["email"])
+    except User.DoesNotExist:
+        user = create_user_from_google_auth(credentials)
+
+    return user, None
+
+
 def login_succeeded(request, user):
     login(request, user)
     messages.success(request, 'Login successfull', extra_tags="success")
@@ -88,12 +109,19 @@ class SignInView(View):
         user = authenticate(request, email=data["email"], password=data["password"])
         if user:
             return login_succeeded(request, user)
-        elif "provider" in data and data["provider"] == "google" and "firebase_id_token" in data:
-            user, error = authenticate_with_google(data["firebase_id_token"])
-            if user:
-                return login_succeeded(request, user)
-            else:
-                return login_failed(request, error)
+        elif "provider" in data:
+            if data["provider"] == "google.com" and "firebase_id_token" in data:
+                user, error = authenticate_with_google(data["firebase_id_token"])
+                if user:
+                    return login_succeeded(request, user)
+                else:
+                    return login_failed(request, error)
+            if data["provider"] == "facebook.com" and "firebase_id_token" in data:
+                user, error = authenticate_with_facebook(data["firebase_id_token"])
+                if user:
+                    return login_succeeded(request, user)
+                else:
+                    return login_failed(request, error)
         else:
             return login_failed(request)
 

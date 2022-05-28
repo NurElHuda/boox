@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     "drf_yasg",
     "rest_framework",
     "django_extensions",
+    "sslserver",    
     "boox_app",
 ]
 
@@ -169,3 +170,5 @@ REST_FRAMEWORK = {
 }
 
 CORS_ALLOW_ALL_ORIGINS = True
+
+CSRF_TRUSTED_ORIGINS = ['https://dcc6-197-202-83-74.eu.ngrok.io']
