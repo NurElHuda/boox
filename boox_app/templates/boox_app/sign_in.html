@@ -98,34 +98,17 @@
     document.getElementById("signInWithGoogleBtn").addEventListener("click", function () {
       signInWithRedirect(auth, provider);
     });
-    getRedirectResult(auth)
-      .then((result) => {
-        result.user.getIdToken().then((token) => {
-          var signUpForm = document.forms["signIn"];
-          signUpForm.elements.email.value = result.user.email;
-          signUpForm.elements.password.value = result.user.uid;
-          signUpForm.elements.provider.value = "google";
 
-          var firebaseIdTokenElement = document.createElement("input");
-          firebaseIdTokenElement.setAttribute("type", "hidden");
-          firebaseIdTokenElement.setAttribute("name", "firebase_id_token");
-          firebaseIdTokenElement.setAttribute("value", token);
-          signUpForm.appendChild(firebaseIdTokenElement);
 
-          signUpForm.submit();
-        })
-        // TODO: verify that the email exist first.
-      }).catch((error) => {
-        // Handle Errors here.
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // The email of the user's account used.
-        const email = error.email;
-        // The AuthCredential type that was used.
-        // const credential = GoogleAuthProvider.credentialFromError(error);
-        // console.log(error)
-        // TODO: handel errors.
-      });
+    var result = await getRedirectResult(auth);
+    var token = await result.user.getIdToken();
+
+    var form = document.forms[0];
+    form.elements.email.value = result.user.email;
+    form.elements.password.value = result.user.uid;
+    form.elements.provider.value = "google";
+    attach_firebase_id_token(document, form, token)
+    form.submit();
 
   </script>
   {% endblock %}

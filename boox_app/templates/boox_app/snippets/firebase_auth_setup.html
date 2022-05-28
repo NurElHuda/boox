@@ -22,3 +22,12 @@ const app = initializeApp({
 const analytics = getAnalytics(app);
 const provider = new GoogleAuthProvider();
 const auth = getAuth();
+
+
+function attach_firebase_id_token(document, form, token){
+    var firebaseIdTokenElement = document.createElement("input");
+    firebaseIdTokenElement.setAttribute("type", "hidden");
+    firebaseIdTokenElement.setAttribute("name", "firebase_id_token");
+    firebaseIdTokenElement.setAttribute("value", token);
+    form.appendChild(firebaseIdTokenElement);    
+}

@@ -14,6 +14,10 @@ from firebase_admin.auth import verify_id_token
 def authenticate_with_google(firebase_id_token):
     try:
         credentials = verify_id_token(firebase_id_token)
+        print()
+        print()
+        print(credentials)
+        print()
     except Exception as ex:
         return None, "Authentication failed"
     
@@ -21,7 +25,8 @@ def authenticate_with_google(firebase_id_token):
         user = User.objects.get(email=credentials["email"])
         return user, None
     except User.DoesNotExist:
-        return None, "No account with this email"
+        user = User.objects.create(email=credentials["email"], name=credentials["name"])
+        return user, None
 
 
 def login_succeeded(request, user):
