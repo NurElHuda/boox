@@ -3,13 +3,13 @@ from datetime import timedelta
 
 import requests
 from django.conf import settings
-from rest_framework import generics
+from rest_framework.views import APIView
 from rest_framework.response import Response
 
 
 
 
-class PullAndUpdate(generics.CreateAPIView):
+class PullAndUpdate(APIView):
     authentication_classes = []
     permission_classes = []
 
@@ -30,5 +30,3 @@ class PullAndUpdate(generics.CreateAPIView):
             else:
                 message = f"Got unexpected status code {response.status_code}: {response.content}"
         return Response(message)
-
-    serializer_class = None
