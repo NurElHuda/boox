@@ -26,6 +26,8 @@
     </div>
     {% endfor %}
   </div>
+
+  {% if page_obj %}
   <div class="row">
     <div class="col">
         <nav aria-label="Page navigation example">
@@ -51,5 +53,7 @@
         </nav>
     </div>
   </div>
+  {% endif %}
+
 </div>
 {% endblock %}
