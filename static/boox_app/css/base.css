@@ -4,6 +4,11 @@
 
 
 /* Custom default button */
+html,
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
 .btn-outline-secondary,
 .btn-outline-secondary:hover,
 .btn-outline-secondary:focus {
@@ -11,14 +16,16 @@
   border-width: 2px;
   border-color: #563d7c;
   color: #563d7c;
-  text-shadow: none; /* Prevent inheritance from `body` */
+  text-shadow: none;
+  /* Prevent inheritance from `body` */
 }
 
 .btn-secondary,
 .btn-secondary:hover,
 .btn-secondary:focus {
   background-color: #563d7c;
-  text-shadow: none; /* Prevent inheritance from `body` */
+  text-shadow: none;
+  /* Prevent inheritance from `body` */
 }
 
 .form-control:focus {
@@ -26,8 +33,84 @@
   border-width: 2px;
   box-shadow: none;
 }
+
 .form-control:focus {
   border-color: #563d7c;
   border-width: 2px;
   box-shadow: none;
+}
+
+.border-dashed {
+  border-color: #563d7c !important;
+  border-width: 5px !important;
+  border-style: dashed !important;
+}
+
+.alert-fixed {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  z-index: 9999;
+  border-radius: 0px
+}
+
+.purple-dashed-border {
+  border: 5px dashed #563d7c !important;
+}
+
+.red-dashed-border {
+  border: 5px dashed #dc3545 !important;
+}
+
+.highlight-drop {
+  background-color: rgb(86, 61, 124, 0.15);
+}
+
+.min-h-15 {
+  min-height: 15%;
+}
+
+.purple-text,
+.purple-text:hover {
+  color: #563d7c;
+}
+
+.grey-hover-effect:hover {
+  background-color: #e9ecef;
+}
+
+a {
+  text-decoration: none !important;
+}
+
+.h-90 {
+  height: 90%;
+}
+
+.w-60 {
+  
+}
+
+.black-border {
+  border: 2px solid #000;
+}
+
+@media (min-width: 576px) {
+}
+
+@media (min-width: 768px) {
+  .w-md-60{
+    width: 60% !important;
+  }
+}
+
+@media (min-width: 992px) {
+}
+
+@media (min-width: 1200px) {
+}
+
+@media (min-width: 1400px) {
+
 }
