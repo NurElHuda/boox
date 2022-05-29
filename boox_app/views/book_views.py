@@ -18,6 +18,7 @@ from rest_framework.parsers import FormParser, MultiPartParser
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.core.paginator import Paginator
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class BookList(View):
@@ -33,7 +34,8 @@ class BookList(View):
         page_obj = paginator.get_page(page_number) 
         return render(request, "boox_app/book_list.html", {"page_obj": page_obj})
 
-class BookCreation(View):
+
+class BookCreation(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         return render(request, "boox_app/book_creation.html", {"regions": REGIONS})
 
@@ -54,6 +56,7 @@ class BookDetail(DetailView):
     context_object_name = "book"
 
 
+# TODO: login required
 class BookCover(APIView):
     authentication_classes = []
     permission_classes = []

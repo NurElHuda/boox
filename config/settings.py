@@ -91,9 +91,9 @@ AUTH_PASSWORD_VALIDATORS = [
         "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
-LOGIN_REDIRECT_URL = "home"
-LOGIN_URL = "sign-in"
-LOGOUT_REDIRECT_URL = "sign-out"
+LOGIN_REDIRECT_URL = "/home/"
+LOGIN_URL = "/sign-in/"
+LOGOUT_REDIRECT_URL = "/sign-out/"
 
 
 ROOT_URLCONF = "config.urls"
