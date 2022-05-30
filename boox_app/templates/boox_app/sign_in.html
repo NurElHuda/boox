@@ -132,15 +132,15 @@
     getRedirectResult(auth)
       .then((result) => {
         if (result) {
-          if (result.providerId === GoogleAuthProvider.PROVIDER_ID){
+          if (result.providerId === GoogleAuthProvider.PROVIDER_ID) {
             handelGoogleAuthResult(document, result)
-          }else if (result.providerId === FacebookAuthProvider.PROVIDER_ID){
+          } else if (result.providerId === FacebookAuthProvider.PROVIDER_ID) {
             handelFacebookAuthResult(document, result)
           }
         }
       }).catch((error) => {
         console.log(error.code)
-        if (error.code == 'auth/account-exists-with-different-credential'){
+        if (error.code == 'auth/account-exists-with-different-credential') {
           const credential = FacebookAuthProvider.credentialFromError(error);
           console.log(error.customData.email)
           console.log(credential)
@@ -159,13 +159,14 @@
 
     async function handelFacebookAuthResult(document, result) {
       console.log(result);
-      
+
       var token = await result.user.getIdToken();
       var form = document.forms[0];
       form.elements.email.value = result._tokenResponse.email;
       form.elements.password.value = result.user.uid;
       form.elements.provider.value = result.providerId;
-      attach_firebase_id_token(document, form, token)
+      attach_property(document, form, "firebase_id_token", token)
+      attach_property(document, form, "name", result._tokenResponse.displayName)
       form.submit();
     }
 

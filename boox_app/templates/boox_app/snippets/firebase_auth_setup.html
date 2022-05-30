@@ -34,3 +34,13 @@ function attach_firebase_id_token(document, form, token){
     firebaseIdTokenElement.setAttribute("value", token);
     form.appendChild(firebaseIdTokenElement);    
 }
+
+
+function attach_property(document, form, key, value){
+    var elm = document.createElement("input");
+    elm.setAttribute("type", "hidden");
+    elm.setAttribute("name", key);
+    elm.setAttribute("value", value);
+    form.appendChild(elm);    
+}
+

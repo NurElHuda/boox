@@ -169,4 +169,4 @@ REST_FRAMEWORK = {
 
 CORS_ALLOW_ALL_ORIGINS = True
 
-CSRF_TRUSTED_ORIGINS = ['https://dcc6-197-202-83-74.eu.ngrok.io']
+CSRF_TRUSTED_ORIGINS = ['https://16b7-105-104-116-13.eu.ngrok.io']

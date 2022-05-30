@@ -11,12 +11,13 @@ from django.views import View
 from firebase_admin.auth import verify_id_token
 
 
-def create_user_from_google_auth(credentials):
+def create_user(data):
+    print(data)
     return User.objects.create(
-            name=credentials["name"],
-            email=credentials["email"],
-            username=credentials["email"],
-            password=make_password(credentials["password"]),
+            name=data["name"],
+            email=data["email"],
+            username=data["email"],
+            password=make_password(data["password"]),
             is_seller=True,
         )
 
@@ -30,28 +31,22 @@ def authenticate_with_google(firebase_id_token):
     try:
         user = User.objects.get(email=credentials["email"])
     except User.DoesNotExist:
-        user = create_user_from_google_auth(credentials)
+        user = create_user(credentials)
 
     return user, None
 
 
 
-def authenticate_with_facebook(firebase_id_token):
-    print(firebase_id_token)
+def authenticate_with_facebook(data):
     try:
-        credentials = verify_id_token(firebase_id_token)
-        print()
-        print()
-        print(credentials)
-        print()
+        credentials = verify_id_token(data["firebase_id_token"])
     except Exception as ex:
-        print(ex)
-        # return None, "Authentication failed"
+        return None, "Authentication failed"
     
     try:
-        user = User.objects.get(email=credentials["email"])
+        user = User.objects.get(email=data["email"])
     except User.DoesNotExist:
-        user = create_user_from_google_auth(credentials)
+        user = create_user(data)
 
     return user, None
 
@@ -104,7 +99,7 @@ class SignInView(View):
         return render(request, "boox_app/sign_in.html")
 
     def post(self, request, *args, **kwargs):
-        data, errors = validate_data(["email", "password", "provider", "firebase_id_token"], request.POST)
+        data, errors = validate_data(["email", "password", "name", "provider", "firebase_id_token"], request.POST)
 
         user = authenticate(request, email=data["email"], password=data["password"])
         if user:
@@ -117,7 +112,7 @@ class SignInView(View):
                 else:
                     return login_failed(request, error)
             if data["provider"] == "facebook.com" and "firebase_id_token" in data:
-                user, error = authenticate_with_facebook(data["firebase_id_token"])
+                user, error = authenticate_with_facebook(data)
                 if user:
                     return login_succeeded(request, user)
                 else:
