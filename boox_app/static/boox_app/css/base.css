@@ -85,8 +85,16 @@ a {
   text-decoration: none !important;
 }
 
+.h-80 {
+  height: 80%;
+}
+
 .h-90 {
   height: 90%;
+}
+
+.w-90 {
+  width: 90%;
 }
 
 .border-purple {
