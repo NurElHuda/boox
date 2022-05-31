@@ -57,6 +57,7 @@ body {
 
 .purple-dashed-border {
   border: 5px dashed #563d7c !important;
+  border-radius: 5% !important;
 }
 
 .red-dashed-border {
@@ -88,8 +89,8 @@ a {
   height: 90%;
 }
 
-.w-60 {
-  
+.border-purple {
+  border: 1px solid #563d7c !important;
 }
 
 .black-border {

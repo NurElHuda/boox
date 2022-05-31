@@ -26,16 +26,6 @@ facebookProvider.addScope('public_profile,email');
 const auth = getAuth();
 
 
-
-function attach_firebase_id_token(document, form, token){
-    var firebaseIdTokenElement = document.createElement("input");
-    firebaseIdTokenElement.setAttribute("type", "hidden");
-    firebaseIdTokenElement.setAttribute("name", "firebase_id_token");
-    firebaseIdTokenElement.setAttribute("value", token);
-    form.appendChild(firebaseIdTokenElement);    
-}
-
-
 function attach_property(document, form, key, value){
     var elm = document.createElement("input");
     elm.setAttribute("type", "hidden");

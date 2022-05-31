@@ -1,9 +1,9 @@
 import re
 
-def validate_data(fields, data):
+def validate_data(data):
     values = {}
     errors = {}
-    for field_key in fields:
+    for field_key in data.keys():
         field_value = data.get(field_key, "")
         if field_value in [None, ""]:
             errors[field_key] =  f"{field_key.title()} is required"

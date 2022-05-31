@@ -12,37 +12,21 @@ from firebase_admin.auth import verify_id_token
 
 
 def create_user(data):
-    print(data)
     return User.objects.create(
-            name=data["name"],
-            email=data["email"],
-            username=data["email"],
-            password=make_password(data["password"]),
-            is_seller=True,
-        )
+        name=data["name"],
+        email=data["email"],
+        username=data["email"],
+        password=make_password(data["password"]),
+        is_seller=True,
+    )
 
 
-def authenticate_with_google(firebase_id_token):
-    try:
-        credentials = verify_id_token(firebase_id_token)
-    except Exception as ex:
-        return None, "Authentication failed"
-    
-    try:
-        user = User.objects.get(email=credentials["email"])
-    except User.DoesNotExist:
-        user = create_user(credentials)
-
-    return user, None
-
-
-
-def authenticate_with_facebook(data):
+def authenticate_with_firebase(data):
     try:
         credentials = verify_id_token(data["firebase_id_token"])
     except Exception as ex:
         return None, "Authentication failed"
-    
+
     try:
         user = User.objects.get(email=data["email"])
     except User.DoesNotExist:
@@ -53,25 +37,25 @@ def authenticate_with_facebook(data):
 
 def login_succeeded(request, user):
     login(request, user)
-    messages.success(request, 'Login successfull', extra_tags="success")
+    messages.success(request, "Login successfull", extra_tags="success")
     return redirect("home")
 
 
 def login_failed(request, error=None):
     if not error:
-        error = 'Login failed: wrong email or password' 
+        error = "Login failed: wrong email or password"
     messages.error(request, error, extra_tags="danger")
     return render(request, "boox_app/sign_in.html")
 
 
 class SignUpView(View):
     def get(self, request, *args, **kwargs):
-        if request.GET.get("err", None) and request.GET["err"] == '1':
+        if request.GET.get("err", None) and request.GET["err"] == "1":
             messages.error(request, request.GET.get("err_code"))
         return render(request, "boox_app/sign_up.html")
 
     def post(self, request, *args, **kwargs):
-        data, errors = validate_data(["name", "email", "password"], request.POST)
+        data, errors = validate_data(request.POST)
         if errors:
             for field, error in errors.items():
                 messages.error(request, error)
@@ -99,33 +83,26 @@ class SignInView(View):
         return render(request, "boox_app/sign_in.html")
 
     def post(self, request, *args, **kwargs):
-        data, errors = validate_data(["email", "password", "name", "provider", "firebase_id_token"], request.POST)
+        data, errors = validate_data(request.POST)
 
         user = authenticate(request, email=data["email"], password=data["password"])
         if user:
             return login_succeeded(request, user)
-        elif "provider" in data:
-            if data["provider"] == "google.com" and "firebase_id_token" in data:
-                user, error = authenticate_with_google(data["firebase_id_token"])
-                if user:
-                    return login_succeeded(request, user)
-                else:
-                    return login_failed(request, error)
-            if data["provider"] == "facebook.com" and "firebase_id_token" in data:
-                user, error = authenticate_with_facebook(data)
-                if user:
-                    return login_succeeded(request, user)
-                else:
-                    return login_failed(request, error)
-        else:
-            return login_failed(request)
+        elif (
+                data.get("provider", None) in ["google.com", "facebook.com"]
+                and data.get("firebase_id_token", None)
+        ):
+            user, error = authenticate_with_firebase(data)
+            if user:
+                return login_succeeded(request, user)
+
+        return login_failed(request, error)
 
 
 class SignOutView(View):
-
     def logout(self, request):
         dj_logout(request)
-        messages.success(request, 'Logout successfull. Sad to see you go.')
+        messages.success(request, "Logout successfull. Sad to see you go.")
         return redirect("home")
 
     def get(self, request, *args, **kwargs):

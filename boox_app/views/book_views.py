@@ -41,7 +41,7 @@ class BookCreation(LoginRequiredMixin, View):
 
     def post(self, request, *args, **kwargs):
         fields = ["title", "author_name", "goodreads", "cover", "wilaya", "price"]
-        data, errors = validate_data(fields, request.POST)
+        data, errors = validate_data(request.POST)
         if errors:
             # for field, error in errors.items():
             #     messages.error(request, error, extra_tags="danger")
