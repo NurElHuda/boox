@@ -115,11 +115,32 @@
       </div>
     </div>
     {% endcomment %}
+
+    
+  </div>
+
+  <!-- Modal -->
+  <div class="modal bg-white " tabindex="-1" id="model">
+    <div class="modal-dialog  modal-dialog-centered">
+      <div class="modal-content no-border">
+
+        <div class="modal-body">
+          <div class="text-center">
+            <div class="spinner-border purple-text" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
   </div>
 
 
   <script type="module">
     {% include 'boox_app/snippets/firebase_auth_setup.html' %}
+
+    loading()
 
     document.getElementById("signInWithGoogleBtn").addEventListener("click", function () {
       signInWithRedirect(auth, googleProvider);
@@ -182,5 +203,11 @@
       form.submit();
     }
 
+    function loading(){
+      var model = new bootstrap.Modal(document.getElementById("model"), {
+        backdrop: false
+      });
+      model.show();
+    }
   </script>
   {% endblock %}

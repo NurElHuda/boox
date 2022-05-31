@@ -110,21 +110,24 @@ a {
   border: 2px solid #000;
 }
 
-@media (min-width: 576px) {
+.modal-backdrop.show {
+  opacity: 0.1 !important;
 }
 
+.no-border{
+  border: none;
+}
+
+@media (min-width: 576px) {}
+
 @media (min-width: 768px) {
-  .w-md-60{
+  .w-md-60 {
     width: 60% !important;
   }
 }
 
-@media (min-width: 992px) {
-}
+@media (min-width: 992px) {}
 
-@media (min-width: 1200px) {
-}
+@media (min-width: 1200px) {}
 
-@media (min-width: 1400px) {
-
-}
+@media (min-width: 1400px) {}
