@@ -8,7 +8,7 @@
         <div
           class="w-100 h-100 d-flex justify-content-center px-2 {% if 'cover' in errors %} red-dashed-border {% else %} purple-dashed-border {% endif %}"
           id="dropArea">
-          <div class="vstack gap-3 m-auto d-flex align-items-center border" id="dropAreaCenterDiv" onclick="performClick('fileElem');">
+          <div class="vstack gap-3 m-auto d-flex align-items-center" id="dropAreaCenterDiv" onclick="performClick('fileElem');">
             <input type="file" id="fileElem" multiple accept="image/*" onchange="handleFiles(this.files)" style="display: none;">
             {% if 'cover' in errors %}
             <div class="h6 my-2" id="dropAreaText1">Cover is required</div>
@@ -143,7 +143,7 @@
 
   function activateLoading(){
     spinnerHtml = `<div class="d-flex justify-content-center">
-        <div class="spinner-border" role="status">
+        <div class="spinner-border purple-text" role="status">
           <span class="visually-hidden">Loading...</span>
         </div>
       </div>`
@@ -175,8 +175,7 @@
     var dropArea = document.getElementById('dropArea');
     dropArea.classList.remove("purple-dashed-border")
     dropArea.classList.remove("px-2");
-    dropArea.classList.add("border");
-    dropArea.classList.add("border-purple");
+    dropArea.classList.add("border-purple-r5");
     dropArea.innerHTML = `
       <img class="" src="${data.file_path}" width="99%" height="99%"/>
     `;
@@ -184,7 +183,7 @@
 
   function appendCoverInfoToForm(data) {
     var cover = document.getElementById('cover');
-    cover.classList.add("border-purple")
+    cover.classList.add("border-purple-r5")
     cover.value = data.file_path;
   }
 
