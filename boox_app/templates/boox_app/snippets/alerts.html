@@ -1,6 +1,6 @@
 {% if messages %}
 {% for message in messages %}
-<div class="alert {% if message.tags %} alert-{{message.tags}} {% endif %}  fixed-top" role="alert">
+<div class="alert {% if message.tags %} alert-{{message.tags}} {% endif %} fixed-top fade-in my-3 mx-5" role="alert">
     {{ message }}
 </div>
 {% endfor %}
