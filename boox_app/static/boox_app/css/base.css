@@ -118,6 +118,10 @@ a {
   border: none;
 }
 
+.minh-100{
+  min-height: 100px;
+}
+
 @media (min-width: 576px) {}
 
 @media (min-width: 768px) {

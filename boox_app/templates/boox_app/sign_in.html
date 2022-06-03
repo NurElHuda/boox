@@ -124,6 +124,10 @@
     <div class="modal-dialog  modal-dialog-centered">
       <div class="modal-content no-border">
 
+        <div class="modal-header no-border justify-content-center">
+          <span class="h5" id="greeting">Hi</span>
+        </div>
+  
         <div class="modal-body">
           <div class="text-center">
             <div class="spinner-border purple-text" role="status">
@@ -139,8 +143,12 @@
 
   <script type="module">
     {% include 'boox_app/snippets/firebase_auth_setup.html' %}
+  
+    var model = new bootstrap.Modal(document.getElementById("model"), {
+      backdrop: false
+    });
 
-    loading()
+    activateLoading()
 
     document.getElementById("signInWithGoogleBtn").addEventListener("click", function () {
       signInWithRedirect(auth, googleProvider);
@@ -158,7 +166,10 @@
           } else if (result.providerId === FacebookAuthProvider.PROVIDER_ID) {
             handelFacebookAuthResult(document, result)
           }
+        }else{
+          deactivateLoading();
         }
+
       }).catch((error) => {
         console.log(error.code)
         if (error.code == 'auth/account-exists-with-different-credential') {
@@ -179,7 +190,7 @@
 
 
     async function handelFacebookAuthResult(document, result) {
-      console.log(result);
+      displayGreeting(result._tokenResponse.displayName);
 
       var token = await result.user.getIdToken();
       var form = document.forms[0];
@@ -193,6 +204,8 @@
 
 
     async function handelGoogleAuthResult(document, result) {
+      displayGreeting(result.user.displayName);
+
       var token = await result.user.getIdToken();
       var form = document.forms[0];
       form.elements.email.value = result.user.email;
@@ -203,11 +216,17 @@
       form.submit();
     }
 
-    function loading(){
-      var model = new bootstrap.Modal(document.getElementById("model"), {
-        backdrop: false
-      });
+    function activateLoading(){
       model.show();
+    }
+
+    function deactivateLoading(){
+      model.hide();
+    }
+
+    function displayGreeting(name){
+      var greetingElm = document.getElementById("greeting");
+      greetingElm.innerHTML = `Hi ${name} &#128075;`;
     }
   </script>
   {% endblock %}
