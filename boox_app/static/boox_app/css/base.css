@@ -97,6 +97,10 @@ a {
   width: 90%;
 }
 
+.w-40 {
+  width: 40%;
+}
+
 .border-purple {
   border: 1px solid #563d7c !important;
 }
@@ -125,8 +129,19 @@ a {
   transition: transform 0.75s ease;
 }
 
+.alert-custom{
+  width: 85%;
+  max-width: 450px !important;
+  background-color: white;
+  border-width: 2px;
+}
 
-@media (min-width: 576px) {}
+
+@media (min-width: 375px) {
+}
+
+@media (min-width: 428px) {
+}
 
 @media (min-width: 768px) {
   .w-md-60 {

@@ -28,7 +28,9 @@ class BookList(View):
 
     def get(self, request, *args, **kwargs):
         books = Book.objects.all()
-                
+        
+        messages.success(request, "hello")
+        
         paginator = Paginator(books, self.paginate_by)
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number) 

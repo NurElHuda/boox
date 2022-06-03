@@ -1,6 +1,8 @@
 {% if messages %}
 {% for message in messages %}
-<div class="alert {% if message.tags %} alert-{{message.tags}} {% endif %} fixed-top fade-in my-3 mx-5" role="alert">
+<div class="alert {% if message.tags %} alert-{{message.tags}} {% endif %} fixed-top fade-in my-3 mx-auto alert-custom justify-content-center" role="alert">
+    {% if 'danger' in message.tags %}<span class="me-2">&#9940</span>{% endif %}
+    {% if 'success' in message.tags %}<span class="me-2">&#9989</span>{% endif %}
     {{ message }}
 </div>
 {% endfor %}
