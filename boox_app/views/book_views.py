@@ -28,7 +28,9 @@ class BookList(View):
 
     def get(self, request, *args, **kwargs):
         books = Book.objects.all()
-
+        
+        messages.success(request, "hello", extra_tags="danger")
+        
         paginator = Paginator(books, self.paginate_by)
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number) 
@@ -40,11 +42,8 @@ class BookCreation(LoginRequiredMixin, View):
         return render(request, "boox_app/book_creation.html", {"regions": REGIONS})
 
     def post(self, request, *args, **kwargs):
-        fields = ["title", "author_name", "goodreads", "cover", "wilaya", "price"]
         data, errors = validate_data(request.POST)
         if errors:
-            # for field, error in errors.items():
-            #     messages.error(request, error, extra_tags="danger")
             return render(request, "boox_app/book_creation.html", {"data": data, "errors": errors, "regions": REGIONS})
 
         obj = Book.objects.create(**data, seller=request.user)

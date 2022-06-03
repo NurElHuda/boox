@@ -10,7 +10,7 @@
 setTimeout(function() {
     alerts = document.getElementsByClassName("alert");
     for (item of alerts){
-        item.style.display = "none";
+        item.classList.add("fade-out");
     }
-}, 4000);
+}, 3000);
 </script>

@@ -118,9 +118,13 @@ a {
   border: none;
 }
 
-.minh-100{
-  min-height: 100px;
+.fade-out {
+  transform: scaleY(0);    
+  transform-origin: top;
+  color: transparent;
+  transition: transform 0.75s ease;
 }
+
 
 @media (min-width: 576px) {}
 
