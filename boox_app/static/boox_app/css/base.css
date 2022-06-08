@@ -55,13 +55,14 @@ body {
   border-radius: 0px
 }
 
-.purple-dashed-border {
-  border: 5px dashed #563d7c !important;
-  border-radius: 10px;
+.purple-border{
+  border: 1px solid #ced4da;
+  border-radius: .25rem;
 }
 
-.red-dashed-border {
-  border: 5px dashed #dc3545 !important;
+.red-border{
+  border: 1px solid #dc3545;
+  border-radius: .25rem;
 }
 
 .highlight-drop {
