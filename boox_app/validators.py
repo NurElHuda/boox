@@ -1,6 +1,8 @@
 import re
 
 def validate_data(data):
+    csrfmiddlewaretoken = data.pop('csrfmiddlewaretoken')
+
     values = {}
     errors = {}
     for field_key in data.keys():
