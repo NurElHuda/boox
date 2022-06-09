@@ -44,6 +44,9 @@ class BookCreation(LoginRequiredMixin, View):
         if errors:
             return render(request, "boox_app/book_creation.html", {"data": data, "errors": errors, "regions": REGIONS})
 
+        print()
+        print(data)
+        print()
         obj = Book.objects.create(**data, seller=request.user)
         return redirect("book-detail", pk=obj.pk)
 

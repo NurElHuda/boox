@@ -1,7 +1,8 @@
 import re
 
+
 def validate_data(data):
-    data = dict(data)
+    data = data.dict()
     csrfmiddlewaretoken = data.pop('csrfmiddlewaretoken')
 
     values = {}

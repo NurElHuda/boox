@@ -5,12 +5,12 @@
     <div class="w-90 h-90 m-auto">
 
       <input type="hidden" name="cover" value="" id="cover">
-      <div class="row mb-1 gy-1">
+      <div class="row mb-2 gy-1">
         <div class="col-sm-12 col-md-6 mb-sm-1 mb-md-0">
           <div
-            class="w-100 h-100 d-flex justify-content-center px-2 {% if 'cover' in errors %} red-border {% else %} purple-border {% endif %}"
-            id="dropArea">
-            <div class="vstack gap-3 m-auto d-flex align-items-center" id="dropAreaCenterDiv" onclick="performClick('fileElem');">
+            class="w-100 h-100 d-flex justify-content-center px-2 {% if 'cover' in errors %} red-border red-hover-effect {% else %} purple-border purple-hover-effect {% endif %} grey-hover-effect"
+            id="dropArea" onclick="performClick('fileElem');">
+            <div class="vstack gap-3 m-auto d-flex align-items-center" id="dropAreaCenterDiv">
               <input type="file" id="fileElem" multiple accept="image/*" onchange="handleFiles(this.files)" style="display: none;">
               {% if 'cover' in errors %}
               <div class="h6 my-2" id="dropAreaText1">Cover is required</div>
@@ -35,35 +35,34 @@
         <div class="col-sm-12 col-md-6 d-flex">
           <div class="row ">
             <div class="col-12  mb-2 pb-1">
-              <div class="form-floating">
+              <div class="">
+                <label class="pb-1 fw-light text-start w-100">Title of the book</label>
                 <input type="text" name="title" value="{{data.title}}"
-                  class="form-control px-2  {% if 'title' in errors %} is-invalid {% endif %} needs-validation" id="title"
-                  placeholder="Title of the book" />
-                <label for="title" class="px-4">Title of the book</label>
+                  class="form-control px-2  {% if 'title' in errors %} is-invalid {% endif %} needs-validation" id="title" />
               </div>
             </div>
             <div class="col-12 mt-2 py-2">
-              <div class="form-floating">
+              <div class="">
+                <label class="pb-1 fw-light text-start w-100">Author of the book</label>
                 <input type="text" name="author_name" value="{{data.author_name}}"
                   class="form-control px-2  {% if 'author_name' in errors %} is-invalid {% endif %}" id="author_name"
-                  placeholder="Author of the book" />
-                <label for="author_name" class="px-4">Author of the book</label>
+                   />
               </div>
             </div>
-            <div class="col-12 my-5 py-4"></div>
+            <div class="col-12 my-4 py-4"></div>
             <div class="col-12 my-1 py-1">
-              <div class="form-floating">
+              <div class="">
+                <label class="pb-1 fw-light text-start w-100">GoodReads link</label>
                 <input type="text" name="goodreads" value="{{data.goodreads}}"
-                  class="form-control px-2  {% if 'goodread' in errors %} is-invalid {% endif %}" id="goodreads"
-                  placeholder="GoodReads link" />
-                <label for="goodreads" class="px-4">GoodReads link</label>
+                  class="form-control px-2  {% if 'goodread' in errors %} is-invalid {% endif %}" id="goodreads" />
               </div>
             </div>
             <div class="col-12 my-1 py-1">
-              <div class="form-floating">
+              <div class="">
                 <!-- <input type="text" name="wilaya" class="form-control px-2  {% if 'wilaya' in errors %} is-invalid {% endif %}" id="floatingInput"/> -->
+                <label class="pb-1 fw-light text-start w-100">Wilaya</label>
                 <select name="wilaya" class="form-select {% if 'wilaya' in errors %} is-invalid {% endif %} "
-                  aria-label="Floating label select wilaya" placeholder="Wilaya" id="wilaya">
+                  aria-label="Floating label select wilaya" id="wilaya">
                   
                   {% if not data.wilaya or data.wilaya == "" %}
                   <option selected disabled></option>
@@ -72,7 +71,6 @@
                   <option value="{{region.wilaya_code}}" {% if region.wilaya_code|stringformat:"s" == data.wilaya|stringformat:"s" %} selected {% endif %} >{{region.wilaya_code}} - {{region.wilaya_name_ascii}}</option>
                   {% endfor %}
                 </select>
-                <label for="wilaya" class="px-4">Wilaya</label>
               </div>
             </div>
             <div class="col-12 my-1 py-3">
@@ -92,11 +90,13 @@
                 </a></div>
               </div>
             </div>
-            <div class="col-12 d-flex justify-content-sm-center justify-content-md-end">
-              <div class="form-floating">
+            <div class="col-12 d-flex px-2 ">
+              <label class=" w-25 h-100 d-flex justify-content-start align-items-center ">
+                <span class="pb-2 text-start align-middle fw-light">Selling price</span>
+              </label>
+              <div class="w-75">
                 <input type="number" name="price" value="{{data.price}}" class="form-control {% if 'price' in errors %} is-invalid {% endif %}"
-                  id="price" placeholder="Selling price" />
-                <label for="price" class="px-4">Selling price</label>
+                  id="price" />
               </div>
             </div>
           </div>
@@ -122,8 +122,8 @@
   }
 
   function setErrorCover(errorMsg) {
-    dropArea.classList.remove("purple-border")
-    dropArea.classList.add("red-border")
+    dropArea.classList.remove("purple-")
+    dropArea.classList.add("red-")
 
     var bookSvg = document.getElementById("bookSvg");
     updateSvgColor(bookSvg, "#563d7c");
@@ -133,8 +133,8 @@
   }
 
   function unsetErrorCover(errorMsg) {
-    dropArea.classList.add("purple-border")
-    dropArea.classList.remove("red-border")
+    dropArea.classList.add("purple-")
+    dropArea.classList.remove("red-")
 
     var bookSvg = document.getElementById("bookSvg");
     updateSvgColor(bookSvg, "#563d7c");
@@ -160,7 +160,7 @@
 
   function activateLoading(){
     spinnerHtml = `<div class="d-flex justify-content-center">
-        <div class="spinner-border purple-text" role="status">
+        <div class="spinner- purple-text" role="status">
           <span class="visually-hidden">Loading...</span>
         </div>
       </div>`
@@ -169,8 +169,8 @@
   }
 
   function handleDrop(e) {
-    dropArea.classList.add("purple-border")
-    dropArea.classList.remove("red-border")
+    dropArea.classList.add("purple-")
+    dropArea.classList.remove("red-")
     
     let dt = e.dataTransfer
     let files = dt.files
@@ -190,17 +190,17 @@
 
   function setCoverImg(data) {
     var dropArea = document.getElementById('dropArea');
-    dropArea.classList.remove("purple-border")
+    dropArea.classList.remove("purple-")
     dropArea.classList.remove("px-2");
-    dropArea.classList.add("border-purple-r5");
+    dropArea.classList.add("-purple-r5");
     dropArea.innerHTML = `
-      <img class="" src="${data.file_path}" width="99%" height="99%"/>
+      <img class="w-100 h-100" src="${data.file_path}" />
     `;
   }
 
   function appendCoverInfoToForm(data) {
     var cover = document.getElementById('cover');
-    cover.classList.add("border-purple-r5")
+    cover.classList.add("-purple-r5")
     cover.value = data.file_path;
   }
 
@@ -252,12 +252,10 @@
 
 
   function reValidate(){
-    console.log(this.value)
     if (this.value && this.value !== ''){
       this.classList.remove('is-invalid');
     }
 
-    console.log(Number.isFinite(Number.parseFloat(this.value)))
     if (Number.isFinite(Number.parseFloat(this.value))){
       this.classList.remove('is-invalid');
     }else{
