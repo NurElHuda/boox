@@ -168,6 +168,6 @@ REST_FRAMEWORK = {
 }
 
 CORS_ALLOW_ALL_ORIGINS = True
-CORS_ALLOWED_ORIGINS = ["play.google.com"]
+CORS_ALLOWED_ORIGINS = ["https://play.google.com"]
 
 CSRF_TRUSTED_ORIGINS = ['https://f97b-105-104-122-168.eu.ngrok.io']
