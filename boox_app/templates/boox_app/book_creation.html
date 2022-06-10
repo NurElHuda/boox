@@ -254,23 +254,22 @@
   function reValidate(){
     console.log(this.value)
     console.log(this.value && this.value !== '')
-    console.log(this.classList)
+
     if (this.value && this.value !== ''){
       this.classList.remove('is-invalid');
-      this.classList.add('was-validated');
     }
-    console.log(this.classList)
 
-    if (Number.isFinite(Number.parseFloat(this.value))){
-      this.classList.remove('is-invalid');
-    }else{
-      this.classList.add('is-invalid')
+    if (this.id === 'price'){
+      if(Number.isFinite(Number.parseFloat(this.value))){
+        this.classList.remove('is-invalid');
+      }else{
+        this.classList.add('is-invalid')
+      }
     }
   }
 
   ;['title', 'author_name', 'goodreads', 'wilaya', 'price'].forEach(elmId => {
     var elm = document.getElementById(elmId);
-    console.log(elm);
     elm.oninput = reValidate;
   })
 
