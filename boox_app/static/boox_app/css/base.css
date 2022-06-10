@@ -142,10 +142,12 @@ a {
 .alert-custom{
   width: 85%;
   max-width: 450px !important;
-  background-color: white;
-  
+  background-color: white;  
 }
 
+.cover{
+  min-height: 600px;
+}
 
 @media (min-width: 375px) {
 }
