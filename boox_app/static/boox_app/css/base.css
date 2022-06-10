@@ -147,15 +147,24 @@ a {
 
 .cover{
   min-height: 600px;
+  max-width: 400px;
 }
 
 @media (min-width: 375px) {
+  .cover{
+    min-height: 550px;
+    max-width: 350px;
+  }
 }
 
 @media (min-width: 428px) {
 }
 
 @media (min-width: 768px) {
+  .cover{
+    min-height: 600px;
+    max-width: 400px;
+  }
   .w-md-60 {
     width: 60% !important;
   }
