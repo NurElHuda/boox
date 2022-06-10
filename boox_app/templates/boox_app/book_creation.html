@@ -122,8 +122,8 @@
   }
 
   function setErrorCover(errorMsg) {
-    dropArea.classList.remove("purple-")
-    dropArea.classList.add("red-")
+    dropArea.classList.remove("purple-border")
+    dropArea.classList.add("red-border")
 
     var bookSvg = document.getElementById("bookSvg");
     updateSvgColor(bookSvg, "#563d7c");
@@ -133,8 +133,8 @@
   }
 
   function unsetErrorCover(errorMsg) {
-    dropArea.classList.add("purple-")
-    dropArea.classList.remove("red-")
+    dropArea.classList.add("purple-border")
+    dropArea.classList.remove("red-border")
 
     var bookSvg = document.getElementById("bookSvg");
     updateSvgColor(bookSvg, "#563d7c");
@@ -169,8 +169,8 @@
   }
 
   function handleDrop(e) {
-    dropArea.classList.add("purple-")
-    dropArea.classList.remove("red-")
+    dropArea.classList.add("purple-border")
+    dropArea.classList.remove("red-border")
     
     let dt = e.dataTransfer
     let files = dt.files
@@ -190,7 +190,7 @@
 
   function setCoverImg(data) {
     var dropArea = document.getElementById('dropArea');
-    dropArea.classList.remove("purple-")
+    dropArea.classList.remove("purple-border")
     dropArea.classList.remove("px-2");
     dropArea.classList.add("-purple-r5");
     dropArea.innerHTML = `
@@ -252,9 +252,14 @@
 
 
   function reValidate(){
+    console.log(this.value)
+    console.log(this.value && this.value !== '')
+    console.log(this.classList)
     if (this.value && this.value !== ''){
       this.classList.remove('is-invalid');
+      this.classList.add('was-validated');
     }
+    console.log(this.classList)
 
     if (Number.isFinite(Number.parseFloat(this.value))){
       this.classList.remove('is-invalid');
