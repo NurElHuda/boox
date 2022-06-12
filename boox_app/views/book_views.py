@@ -1,5 +1,6 @@
 
 import os
+from pprint import pprint
 
 from boox_app.constants import REGIONS
 from boox_app.models import Book
@@ -7,7 +8,7 @@ from boox_app.validators import validate_data
 from config.settings import BASE_URL, BOOK_COVERS_PATH, BOOK_COVERS_URL
 from django.contrib import messages
 from django.core.files.storage import FileSystemStorage
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 from django.views import View
 from django.views.generic import DetailView, ListView
@@ -35,7 +36,7 @@ class BookList(View):
         return render(request, "boox_app/book_list.html", {"page_obj": page_obj})
 
 
-class BookMine(View):
+class BookMine(LoginRequiredMixin, View):
     model = Book
     context_object_name = "books"
     paginate_by = 8
@@ -58,6 +59,27 @@ class BookCreation(LoginRequiredMixin, View):
         if errors:
             return render(request, "boox_app/book_creation.html", {"data": data, "errors": errors, "regions": REGIONS})
         obj = Book.objects.create(**data, seller=request.user)
+        return redirect("book-detail", pk=obj.pk)
+
+
+class BookUpdate(LoginRequiredMixin, View):
+    def get_object(self):
+        obj = get_object_or_404(Book, pk=self.kwargs.get("pk", None))
+        return obj
+
+    def get(self, request, *args, **kwargs):
+        obj = self.get_object()
+        pprint(request.__dict__)
+        return render(request, "boox_app/book_update.html", {"book": obj, "regions": REGIONS})
+
+    def post(self, request, *args, **kwargs):
+        obj = self.get_object()
+        data, errors = validate_data(request.POST)
+
+        if errors:
+            return render(request, "boox_app/book_update.html", {"book": obj, "data": data, "errors": errors, "regions": REGIONS})
+
+        obj.update(data)
         return redirect("book-detail", pk=obj.pk)
 
 

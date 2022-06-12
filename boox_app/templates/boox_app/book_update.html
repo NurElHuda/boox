@@ -1,0 +1,271 @@
+{% extends "boox_app/base.html" %} {% load static i18n %} {% block content %}
+<div class="container mb-1">
+  <form method="post" action="{% url 'book-update' pk=book.pk %}">
+    {% csrf_token %}
+    <div class="w-90 h-90 m-auto">
+
+      <input type="hidden" name="cover" value="" id="cover">
+
+      <div class="row mb-2 gy-1">
+        <div class="col-sm-12 col-md-6 mb-sm-1 mb-md-0">
+          <div
+            class="w-100 h-100 cover d-flex justify-content-center px-2 {% if 'cover' in errors %} red-border red-hover-effect {% else %} purple-border purple-hover-effect {% endif %} grey-hover-effect"
+            id="dropArea" onclick="performClick('fileElem');">
+            <div class="vstack gap-3 m-auto d-flex align-items-center" id="dropAreaCenterDiv">
+              <input type="file" id="fileElem" multiple accept="image/*" onchange="handleFiles(this.files)" style="display: none;">
+              {% if 'cover' in errors %}
+              <div class="h6 my-2" id="dropAreaText1">Cover is required</div>
+              {% else %}
+              <div class="h6 " id="dropAreaText2">Drop a picture of the cover here</div>
+              {% endif %}
+              <svg viewBox="0 0 100.4 100.4" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" width="150px" height="150px" id="bookSvg">
+                <path
+                d="m92.9 60.4-7.4-5v-15l7.4-4.9c.4-.3.7-.7.7-1.2s-.3-1-.7-1.2L54.8 7.5c-.5-.3-1.2-.3-1.7 0l-47 31.4c-.2.1-.3.2-.4.4v.1c-.2.3-.2.5-.2.8v27.5c0 .5.3 1 .7 1.2l38.1 25.4c.3.2.5.3.8.3.3 0 .6-.1.8-.3L93 62.9c.4-.3.7-.7.7-1.2-.1-.6-.4-1.1-.8-1.3zM54 10.6l35.4 23.6-5.8 3.8c-.3.1-.6.3-.8.5L45 63.7 16.6 44.8c-.1-.1-.2-.1-.2-.2l-6.8-4.5L54 10.6zM17.1 48.8l27 18c.5.3 1.2.3 1.7 0l36.7-24.5v12.3L45.2 79.2l-28.1-18V48.8zM45 91.2 8.4 66.8V43l5.8 3.8V62c0 .5.3 1 .7 1.3l29.6 19c.2.2.5.2.8.2.3 0 .6-.1.8-.2l37.4-24.6 5.9 4L45 91.2z"
+                fill="{% if 'cover' in errors %}#dc3545{% else %}#563d7c{% endif %}" class="fill-000000" />
+                <path
+                d="m47.5 24.3 17.8 12.2c.3.2.6.3.8.3.5 0 .9-.2 1.2-.7.5-.7.3-1.6-.4-2.1L49.2 21.8c-.7-.5-1.6-.3-2.1.4s-.3 1.6.4 2.1z"
+                fill="{% if 'cover' in errors %}#dc3545{% else %}#563d7c{% endif %}" class="fill-000000" />
+              </svg>
+            
+              {% if not 'cover' in errors %}
+              <div class="h6 " id="selectFile">Click here to select a file</div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-6 d-flex">
+          <div class="row ">
+            <div class="col-12 mt-4 mb-3 mt-md-0 mb-md-2 pb-1">
+              <div class="">
+                <label class="pb-1 fw-light text-start w-100">Title of the book</label>
+                <input type="text" name="title" value="{{book.title}}"
+                  class="form-control px-2  {% if 'title' in errors %} is-invalid {% endif %} needs-validation" id="title" />
+              </div>
+            </div>
+            <div class="col-12 mt-2 py-2">
+              <div class="">
+                <label class="pb-1 fw-light text-start w-100">Author of the book</label>
+                <input type="text" name="author_name" value="{{book.author_name}}"
+                  class="form-control px-2  {% if 'author_name' in errors %} is-invalid {% endif %}" id="author_name"
+                   />
+              </div>
+            </div>
+            <div class="col-12 my-sm-1 py-sm-1 my-md-4 py-md-4"></div>
+            <div class="col-12 mt-2 py-2 mt-2 py-2">
+              <div class="">
+                <label class="pb-1 fw-light text-start w-100">GoodReads link</label>
+                <input type="text" name="goodreads" value="{{book.goodreads}}"
+                  class="form-control px-2  {% if 'goodread' in errors %} is-invalid {% endif %}" id="goodreads" />
+              </div>
+            </div>
+            <div class="col-12 mt-2 py-2">
+              <div class="">
+                <!-- <input type="text" name="wilaya" class="form-control px-2  {% if 'wilaya' in errors %} is-invalid {% endif %}" id="floatingInput"/> -->
+                <label class="pb-1 fw-light text-start w-100">Wilaya</label>
+                <select name="wilaya" class="form-select {% if 'wilaya' in errors %} is-invalid {% endif %} "
+                  aria-label="Floating label select wilaya" id="wilaya">
+                  
+                  {% if not book.wilaya or book.wilaya == "" %}
+                  <option selected disabled></option>
+                  {% endif%}
+                  {% for region in regions %}
+                  <option value="{{region.wilaya_code}}" {% if region.wilaya_code|stringformat:"s" == book.wilaya|stringformat:"s" %} selected {% endif %} >{{region.wilaya_code}} - {{region.wilaya_name_ascii}}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+            <div class="col-12 my-2 py-2 my-md-5 py-md-5">
+            </div>
+            <div class="col-12 d-flex px-2">
+              <label class="w-25 h-100 d-flex justify-content-start align-items-center ">
+                <span class="pb-2 ps-1 ps-md-0 text-start align-middle fw-light">Selling price</span>
+              </label>
+              <div class="w-75 pe-1">
+                <input type="number" name="price" value="{{book.price}}" class="form-control {% if 'price' in errors %} is-invalid {% endif %}" 
+                  id="price" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="mt-5 mt-md-2">
+          <button class="col-12 btn btn-secondary py-3 my-1" type="submit">Post for sale</button>
+        </div>
+      </div>
+
+    </div>
+  </form>
+</div>
+
+<script>
+
+  function updateSvgColor(svgElm, colorStr) {
+    var children = svgElm.children;
+    for (var i = 0; i < children.length; i++) {
+      children[i].setAttribute("fill", colorStr);
+    }
+  }
+
+  function setErrorCover(errorMsg) {
+    dropArea.classList.remove("purple-border")
+    dropArea.classList.add("red-border")
+
+    var bookSvg = document.getElementById("bookSvg");
+    updateSvgColor(bookSvg, "#563d7c");
+
+    var dropAreaText = document.getElementById("dropAreaText");
+    dropAreaText.innerHTML = errorMsg;
+  }
+
+  function unsetErrorCover(errorMsg) {
+    dropArea.classList.add("purple-border")
+    dropArea.classList.remove("red-border")
+
+    var bookSvg = document.getElementById("bookSvg");
+    updateSvgColor(bookSvg, "#563d7c");
+
+    var dropAreaText = document.getElementById("dropAreaText");
+    dropAreaText.innerHTML = "Done! Loading..";
+  }
+
+  function preventDefaults(e) {
+    e.preventDefault()
+    e.stopPropagation()
+  }
+
+  function highlight(e) {
+    dropArea.classList.add('highlight')
+    dropArea.classList.add('highlight-drop')
+  }
+
+  function unhighlight(e) {
+    dropArea.classList.remove('highlight');
+    dropArea.classList.remove('highlight-drop');
+  }
+
+  function activateLoading(){
+    spinnerHtml = `<div class="d-flex justify-content-center">
+        <div class="spinner- purple-text" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>`
+    var dropAreaCenterDiv = document.getElementById('dropAreaCenterDiv');
+    dropAreaCenterDiv.innerHTML = spinnerHtml
+  }
+
+  function handleDrop(e) {
+    dropArea.classList.add("purple-border")
+    dropArea.classList.remove("red-border")
+    
+    let dt = e.dataTransfer
+    let files = dt.files
+
+    handleFiles(files)
+  }
+  
+  function handleFiles(files) {
+    activateLoading();
+    ([...files]).forEach(uploadFile)
+  }
+
+  function saveCoverInfo(data) {
+    localStorage.setItem('coverName', book.file_name);
+    localStorage.setItem('coverPath', book.file_path);
+  }
+
+  function setCoverImg(data) {
+    var dropArea = document.getElementById('dropArea');
+    dropArea.classList.remove("purple-border")
+    dropArea.classList.remove("px-2");
+    dropArea.classList.add("-purple-r5");
+    dropArea.innerHTML = `
+      <img class="w-100 h-100" src="${book.file_path}" />
+    `;
+  }
+
+  function appendCoverInfoToForm(data) {
+    var cover = document.getElementById('cover');
+    cover.classList.add("-purple-r5")
+    cover.value = book.file_path;
+  }
+
+  function uploadFile(file) {
+    let url = "/books/cover/"
+    let formData = new FormData()
+
+    formData.append('file', file)
+
+    fetch(url, {
+      method: 'POST',
+      body: formData
+    })
+      .then((response) => {
+        if (response.status !== 200) {
+          response.json().then(data => {
+            setErrorCover(book.file)
+          });
+        }
+
+        return response.json()
+      })
+      .then((data) => {
+        saveCoverInfo(data);
+        appendCoverInfoToForm(data);
+        setCoverImg(data)
+      })
+      .catch((error) => {
+        console.log(error.message)
+      })
+  }
+
+  var dropArea = document.getElementById('dropArea');
+
+  ;['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+    dropArea.addEventListener(eventName, preventDefaults, false)
+  });
+
+  ;['dragenter', 'dragover'].forEach(eventName => {
+    dropArea.addEventListener(eventName, highlight, false)
+  });
+
+  ;['dragleave', 'drop'].forEach(eventName => {
+    dropArea.addEventListener(eventName, unhighlight, false)
+  })
+
+  dropArea.addEventListener('drop', handleDrop, false)
+
+
+
+  function reValidate(){
+
+    if (this.value && this.value !== ''){
+      this.classList.remove('is-invalid');
+    }
+
+    if (this.id === 'price'){
+      if(Number.isFinite(Number.parseFloat(this.value))){
+        this.classList.remove('is-invalid');
+      }else{
+        this.classList.add('is-invalid')
+      }
+    }
+  }
+
+  ;['title', 'author_name', 'goodreads', 'wilaya', 'price'].forEach(elmId => {
+    var elm = document.getElementById(elmId);
+    elm.oninput = reValidate;
+  })
+
+  function performClick(elemId) {
+    var elem = document.getElementById(elemId);
+    if(elem && document.createEvent) {
+        var evt = document.createEvent("MouseEvents");
+        evt.initEvent("click", false, false);
+        elem.dispatchEvent(evt);
+    }
+  }
+
+</script>
+{% endblock %}
