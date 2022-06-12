@@ -56,12 +56,12 @@ body {
   border-radius: 0px
 }
 
-.purple-border{
+.purple-border {
   border: 1px solid #ced4da;
   border-radius: .25rem;
 }
 
-.red-border{
+.red-border {
   border: 1px solid #dc3545;
   border-radius: .25rem;
 }
@@ -128,49 +128,63 @@ a {
   opacity: 0.1 !important;
 }
 
-.no-border{
+.no-border {
   border: none;
 }
 
 .fade-out {
-  transform: scaleY(0);    
+  transform: scaleY(0);
   transform-origin: top;
   color: transparent;
   transition: transform 0.75s ease;
 }
 
-.alert-custom{
+.alert-custom {
   width: 85%;
   max-width: 450px !important;
-  background-color: white;  
+  background-color: white;
 }
 
-.cover{
+.cover {
   min-height: 600px;
   max-width: 400px;
+  cursor: pointer;
 }
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
 
 @media (min-width: 375px) {
-  .cover{
-    min-height: 550px;
-    max-width: 350px;
+  .cover,
+  .cover-img {
+    width: 300px;
+    height: 480px;
   }
 }
 
-@media (min-width: 428px) {
-}
+@media (min-width: 428px) {}
 
 @media (min-width: 768px) {
-  .cover{
-    min-height: 600px;
-    max-width: 400px;
+  .cover,
+  .cover-img {
+    width: 300px;
+    height: 480px;
   }
+
   .w-md-60 {
     width: 60% !important;
   }
 }
 
-@media (min-width: 992px) {}
+@media (min-width: 992px) {
+  .cover,
+  .cover-img {
+    width: 400px;
+    height: 640px;
+  }
+}
 
 @media (min-width: 1200px) {}
 
