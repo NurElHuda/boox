@@ -35,6 +35,20 @@ class BookList(View):
         return render(request, "boox_app/book_list.html", {"page_obj": page_obj})
 
 
+class BookMine(View):
+    model = Book
+    context_object_name = "books"
+    paginate_by = 8
+
+    def get(self, request, *args, **kwargs):
+        books = Book.objects.filter(seller=request.user)
+
+        paginator = Paginator(books, self.paginate_by)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number) 
+        return render(request, "boox_app/book_list.html", {"page_obj": page_obj})
+
+
 class BookCreation(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         return render(request, "boox_app/book_creation.html", {"regions": REGIONS})
@@ -43,10 +57,6 @@ class BookCreation(LoginRequiredMixin, View):
         data, errors = validate_data(request.POST)
         if errors:
             return render(request, "boox_app/book_creation.html", {"data": data, "errors": errors, "regions": REGIONS})
-
-        print()
-        print(data)
-        print()
         obj = Book.objects.create(**data, seller=request.user)
         return redirect("book-detail", pk=obj.pk)
 
