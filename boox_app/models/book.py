@@ -50,7 +50,7 @@ class Book(models.Model):
         fields = []
         for key, value in validated_data.items():
             setattr(self, key, value)
-            fields.append("key")
+            fields.append(key)
 
         self.save(update_fields=fields)
 
