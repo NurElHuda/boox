@@ -69,7 +69,6 @@ class BookUpdate(LoginRequiredMixin, View):
 
     def get(self, request, *args, **kwargs):
         obj = self.get_object()
-        pprint(request.__dict__)
         return render(request, "boox_app/book_update.html", {"book": obj, "regions": REGIONS})
 
     def post(self, request, *args, **kwargs):

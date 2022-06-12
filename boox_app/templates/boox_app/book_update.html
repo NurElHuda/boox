@@ -38,14 +38,14 @@
             <div class="col-12 mt-4 mb-3 mt-md-0 mb-md-2 pb-1">
               <div class="">
                 <label class="pb-1 fw-light text-start w-100">Title of the book</label>
-                <input type="text" name="title" value="{{book.title}}"
+                <input type="text" name="title" value="{% firstof data.title book.title  %}"
                   class="form-control px-2  {% if 'title' in errors %} is-invalid {% endif %} needs-validation" id="title" />
               </div>
             </div>
             <div class="col-12 mt-2 py-2">
               <div class="">
                 <label class="pb-1 fw-light text-start w-100">Author of the book</label>
-                <input type="text" name="author_name" value="{{book.author_name}}"
+                <input type="text" name="author_name" value="{% firstof data.author_name book.author_name %}"
                   class="form-control px-2  {% if 'author_name' in errors %} is-invalid {% endif %}" id="author_name"
                    />
               </div>
@@ -54,7 +54,7 @@
             <div class="col-12 mt-2 py-2 mt-2 py-2">
               <div class="">
                 <label class="pb-1 fw-light text-start w-100">GoodReads link</label>
-                <input type="text" name="goodreads" value="{{book.goodreads}}"
+                <input type="text" name="goodreads" value="{% firstof data.goodreads book.goodreads %}"
                   class="form-control px-2  {% if 'goodread' in errors %} is-invalid {% endif %}" id="goodreads" />
               </div>
             </div>
@@ -81,7 +81,7 @@
                 <span class="pb-2 ps-1 ps-md-0 text-start align-middle fw-light">Selling price</span>
               </label>
               <div class="w-75 pe-1">
-                <input type="number" name="price" value="{{book.price}}" class="form-control {% if 'price' in errors %} is-invalid {% endif %}" 
+                <input type="number" name="price" value="{% firstof data.price book.price %}" class="form-control {% if 'price' in errors %} is-invalid {% endif %}" 
                   id="price" />
               </div>
             </div>
