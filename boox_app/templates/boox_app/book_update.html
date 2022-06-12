@@ -4,7 +4,7 @@
     {% csrf_token %}
     <div class="w-90 h-90 m-auto">
 
-      <input type="hidden" name="cover" value="" id="cover">
+      <input type="hidden" name="cover" value="{{book.cover}}" id="cover">
 
       <div class="row mb-2 gy-1">
         <div class="col-sm-12 col-md-6 mb-sm-1 mb-md-0">

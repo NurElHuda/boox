@@ -78,6 +78,7 @@ class BookUpdate(LoginRequiredMixin, View):
         if errors:
             return render(request, "boox_app/book_update.html", {"book": obj, "data": data, "errors": errors, "regions": REGIONS})
 
+        pprint(data)
         obj.update(data)
         return redirect("book-detail", pk=obj.pk)
 
