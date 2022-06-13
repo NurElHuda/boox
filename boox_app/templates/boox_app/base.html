@@ -90,8 +90,13 @@
                     </h1>
                 </a>
                 <nav class="nav nav-masthead justify-content-center float-md-end">
-                    {% if book and 'update' not in request.path %}
-                    <a class="nav-link text-dark grey-hover-effect" href="{% url 'book-update' pk=book.pk %}"><b>Edit this book</b></a>
+                    {% if request.user and request.user == book.seller and book and 'update' not in request.path %}
+                    <a class="nav-link text-dark grey-hover-effect purple-border" href="{% url 'book-update' pk=book.pk %}">
+                        <span>
+                            <svg fill="none" viewBox="0 0 26 30" width="20" height="20" xmlns="http://www.w3.org/2000/svg"><path d="M5 6h10M5 11h10M5 16h5M12 27H5a4 4 0 0 1-4-4V5a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v9.5" stroke="#563d7c" stroke-linecap="round" stroke-width="2" class="stroke-000000"></path><path d="m14.458 17.214 3.266.975 4.516 4.516a2 2 0 0 1 0 2.828l-.707.707a2 2 0 0 1-2.828 0l-4.516-4.516-.975-3.266a1 1 0 0 1 1.244-1.244ZM15 22.535 18.535 19" stroke="#563d7c" stroke-width="2" class="stroke-000000"></path></svg>
+                        </span>
+                        <b>Edit this book</b>
+                    </a>
                     {% endif %}
                     <a class="nav-link text-dark grey-hover-effect" href="{% url 'book-creation' %}">Sell a book</a>
                     {% if request.user.is_authenticated %}
