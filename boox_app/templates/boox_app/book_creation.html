@@ -2,14 +2,14 @@
 <div class="container mb-1">
   <form method="post" action="{% url 'book-creation' %}">
     {% csrf_token %}
-    <div class="w-90 h-90 m-auto">
+    <div class="custom-container border m-auto">
       <input type="hidden" name="cover" value="{{data.cover}}" id="cover">
 
       <div class="row mb-2 gy-1 ">
-        <div class="col-sm-12 col-md-4 mb-sm-1 mb-md-0">
+        <div class="col-sm-12 col-md-6 col-lg-5 mb-1 d-flex align-items-start">
           {% include 'boox_app/snippets/cover_input.html' %}
         </div>
-        <div class="col-sm-12 col-md-8 d-flex">
+        <div class="col-sm-12 col-md-6 col-lg d-flex">
           <div class="row ">
             <div class="col-12 mt-4 mb-3 mt-md-0 mb-md-2 pb-1">
               <div class="">
@@ -26,7 +26,6 @@
                    />
               </div>
             </div>
-            <div class="col-12 my-sm-1 py-sm-1 my-md-4 py-md-4"></div>
             <div class="col-12 mt-2 py-2 mt-2 py-2">
               <div class="">
                 <label class="pb-1 fw-light text-start w-100">GoodReads link</label>
@@ -49,8 +48,6 @@
                   {% endfor %}
                 </select>
               </div>
-            </div>
-            <div class="col-12 my-2 py-2 my-md-5 py-md-5">
             </div>
             <div class="col-12 d-flex px-2">
               <label class="w-25 h-100 d-flex justify-content-start align-items-center ">
