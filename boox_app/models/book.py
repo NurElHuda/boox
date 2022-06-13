@@ -1,7 +1,7 @@
 from django.db import models
 
+from boox_app.constants import REGIONS_DICT
 
-from django.db import models
 from django.urls import reverse
 
 from django.utils import timezone
@@ -37,6 +37,9 @@ class Book(models.Model):
         ordering = ["-created_at"]
         verbose_name = "Book"
         verbose_name_plural = "Books"
+
+    def wilaya_verbose(self):
+        return REGIONS_DICT[int(self.wilaya)]
 
     def __str__(self):
         return f"{self.pk} | {self.title}"
