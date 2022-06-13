@@ -60,15 +60,16 @@ function updateSvgColor(svgElm, colorStr) {
     loadingDiv.remove();
   }
 
-  function handleDrop(e) {
-    dropArea.classList.add("purple-border")
-    dropArea.classList.remove("red-border")
+  // DRAG & DROP feature
+  // function handleDrop(e) {
+  //   dropArea.classList.add("purple-border")
+  //   dropArea.classList.remove("red-border")
     
-    var dt = e.dataTransfer
-    var files = dt.files
+  //   var dt = e.dataTransfer
+  //   var files = dt.files
 
-    handleFiles(files)
-  }
+  //   handleFiles(files)
+  // }
   
   function handleFiles(files) {
     activateLoading();

@@ -1,4 +1,5 @@
-<div class="w-100 h-100 cover d-flex justify-content-center {% if 'cover' in errors %} red-border red-hover-effect {% else %} purple-border purple-hover-effect {% endif %} grey-hover-effect" id="dropArea" onclick="performClick('fileElem');">
+<div class="w-100 h-100 cover d-flex justify-content-center {% if 'cover' in errors %} red-border red-hover-effect 
+            {% else %} purple-border purple-hover-effect {% endif %} grey-hover-effect" id="dropArea" onclick="performClick('fileElem');">
   <div class="vstack gap-3 m-auto d-flex align-items-center" id="dropAreaCenterDiv">
     <input type="file" id="fileElem" multiple accept="image/*" onchange="handleFiles(this.files)" style="display: none;">
     {% if 'cover' not in errors and 'cover' in data and data.cover and data.cover != '' %}
