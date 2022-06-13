@@ -10,15 +10,16 @@
           {% include 'boox_app/snippets/cover_input.html' %}
         </div>
         <div class="col-sm-12 col-md-6 col-lg d-flex">
-          <div class="row ">
-            <div class="col-12 mt-4 mb-3 mt-md-0 mb-md-2 pb-1">
+
+          <div class="row vstack gap-3 gap-lg-5">
+            <div class="col-12 ">
               <div class="">
                 <label class="pb-1 fw-light text-start w-100">Title of the book</label>
                 <input type="text" name="title" value="{{data.title}}"
                   class="form-control px-2  {% if 'title' in errors %} is-invalid {% endif %} needs-validation" id="title" />
               </div>
             </div>
-            <div class="col-12 mt-2 py-2">
+            <div class="col-12">
               <div class="">
                 <label class="pb-1 fw-light text-start w-100">Author of the book</label>
                 <input type="text" name="author_name" value="{{data.author_name}}"
@@ -26,14 +27,14 @@
                    />
               </div>
             </div>
-            <div class="col-12 mt-2 py-2 mt-2 py-2">
+            <div class="col-12">
               <div class="">
                 <label class="pb-1 fw-light text-start w-100">GoodReads link</label>
                 <input type="text" name="goodreads" value="{{data.goodreads}}"
                   class="form-control px-2  {% if 'goodread' in errors %} is-invalid {% endif %}" id="goodreads" />
               </div>
             </div>
-            <div class="col-12 mt-2 py-2">
+            <div class="col-12">
               <div class="">
                 <!-- <input type="text" name="wilaya" class="form-control px-2  {% if 'wilaya' in errors %} is-invalid {% endif %}" id="floatingInput"/> -->
                 <label class="pb-1 fw-light text-start w-100">Wilaya</label>
@@ -49,16 +50,19 @@
                 </select>
               </div>
             </div>
-            <div class="col-12 d-flex px-2">
-              <label class="w-25 h-100 d-flex justify-content-start align-items-center ">
-                <span class="pb-2 ps-1 ps-md-0 text-start align-middle fw-light">Selling price</span>
-              </label>
-              <div class="w-75 pe-1">
-                <input type="number" name="price" value="{{data.price}}" class="form-control {% if 'price' in errors %} is-invalid {% endif %}" 
-                  id="price" />
+            <div class="col-12">
+              <div class="row m-0 p-0" >
+                <label class="col-2 m-0 p-0 d-flex justify-content-start align-items-center ">
+                <span class="pb-2 m-0 text-start fw-light">Price</span>
+                </label>
+                <div class="col m-0 p-0">
+                  <input type="number" name="price" value="{{data.price}}" class="form-control m-0 {% if 'price' in errors %} is-invalid {% endif %}" 
+                    id="price" />
+                </div>
               </div>
             </div>
           </div>
+
         </div>
       </div>
       
