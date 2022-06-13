@@ -2,7 +2,7 @@
 <div class="container mb-1">
   <form method="post" action="{% url 'book-creation' %}">
     {% csrf_token %}
-    <div class="custom-container border m-auto">
+    <div class="custom-container m-auto">
       <input type="hidden" name="cover" value="{{data.cover}}" id="cover">
 
       <div class="row mb-2 gy-1 ">
@@ -11,7 +11,7 @@
         </div>
         <div class="col-sm-12 col-md-6 col-lg d-flex">
 
-          <div class="row vstack gap-3 gap-lg-5">
+          <div class="row vstack gap-3 gap-lg-5 mt-4 mt-md-0">
             <div class="col-12 ">
               <div class="">
                 <label class="pb-1 fw-light text-start w-100">Title of the book</label>
@@ -23,8 +23,7 @@
               <div class="">
                 <label class="pb-1 fw-light text-start w-100">Author of the book</label>
                 <input type="text" name="author_name" value="{{data.author_name}}"
-                  class="form-control px-2  {% if 'author_name' in errors %} is-invalid {% endif %}" id="author_name"
-                   />
+                  class="form-control px-2  {% if 'author_name' in errors %} is-invalid {% endif %}" id="author_name" />
               </div>
             </div>
             <div class="col-12">
@@ -40,17 +39,14 @@
                 <label class="pb-1 fw-light text-start w-100">Wilaya</label>
                 <select name="wilaya" class="form-select {% if 'wilaya' in errors %} is-invalid {% endif %} "
                   aria-label="Floating label select wilaya" id="wilaya">
-                  
-                  {% if not data.wilaya or data.wilaya == "" %}
-                  <option selected disabled></option>
-                  {% endif%}
+                  {% if not data.wilaya or data.wilaya == "" %}<option selected disabled></option>{% endif%}
                   {% for region in regions %}
                   <option value="{{region.wilaya_code}}" {% if region.wilaya_code|stringformat:"s" == data.wilaya|stringformat:"s" %} selected {% endif %} >{{region.wilaya_code}} - {{region.wilaya_name_ascii}}</option>
                   {% endfor %}
                 </select>
               </div>
             </div>
-            <div class="col-12">
+            <div class="col-12 pt-4 pt-md-0">
               <div class="row m-0 p-0" >
                 <label class="col-2 m-0 p-0 d-flex justify-content-start align-items-center ">
                 <span class="pb-2 m-0 text-start fw-light">Price</span>
@@ -67,7 +63,7 @@
       </div>
       
       <div class="row">
-        <div class="mt-5 mt-md-2">
+        <div class="mt-4 mt-md-3 pt-1 pt-md-0">
           <button class="col-12 btn btn-secondary py-3 my-1" type="submit">Post for sale</button>
         </div>
       </div>
