@@ -1,13 +1,14 @@
 {% extends "boox_app/base.html" %} {% load static i18n %} {% block content %}
 <div class="container mb-1">
-  <form method="post" action="{% url 'book-creation' %}">
-    {% csrf_token %}
+  
     <div class="custom-container m-auto">
       <input type="hidden" name="cover" value="{{book.cover}}" id="cover">
 
       <div class="row mb-2 gy-1 ">
         <div class="col-sm-12 col-md-6 col-lg-5 mb-1 d-flex align-items-start">
-          {% include 'boox_app/snippets/cover_input.html' %}
+          <div class="w-100 h-100 cover ju d-flex justify-content-center purple-border">
+            <img class="cover-img" src="{{book.cover}}" />
+          </div>
         </div>
         <div class="col-sm-12 col-md-6 col-lg d-flex">
 
@@ -48,9 +49,7 @@
 
         </div>
       </div>
-
     </div>
-  </form>
 </div>
 
 {% endblock %}
