@@ -85,8 +85,6 @@
 
   function setCoverImg(data) {
     var dropArea = document.getElementById('dropArea');
-    dropArea.classList.remove("purple-border")
-    dropArea.classList.remove("px-2");
     dropArea.classList.add("border-purple-r5");
     dropArea.innerHTML = `
       <img class="w-100 h-100" src="${data.file_path}" />
