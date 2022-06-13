@@ -1,7 +1,20 @@
 <script>
 
+  // ---------------------------------------------------------------------------------
+  // Cover image handeling
+  //
+  var dropArea = document.getElementById('dropArea');
 
-function updateSvgColor(svgElm, colorStr) {
+  function performClick(elemId) {
+    var elem = document.getElementById(elemId);
+    if(elem && document.createEvent) {
+        var evt = document.createEvent("MouseEvents");
+        evt.initEvent("click", false, false);
+        elem.dispatchEvent(evt);
+    }
+  }
+
+  function updateSvgColor(svgElm, colorStr) {
     var children = svgElm.children;
     for (var i = 0; i < children.length; i++) {
       children[i].setAttribute("fill", colorStr);
@@ -60,17 +73,6 @@ function updateSvgColor(svgElm, colorStr) {
     loadingDiv.remove();
   }
 
-  // DRAG & DROP feature
-  // function handleDrop(e) {
-  //   dropArea.classList.add("purple-border")
-  //   dropArea.classList.remove("red-border")
-    
-  //   var dt = e.dataTransfer
-  //   var files = dt.files
-
-  //   handleFiles(files)
-  // }
-  
   function handleFiles(files) {
     activateLoading();
     ([...files]).forEach(uploadFile)
@@ -80,7 +82,6 @@ function updateSvgColor(svgElm, colorStr) {
     localStorage.setItem('coverName', data.file_name);
     localStorage.setItem('coverPath', data.file_path);
   }
-
 
   function setCoverImg(data) {
     var dropArea = document.getElementById('dropArea');
@@ -128,24 +129,10 @@ function updateSvgColor(svgElm, colorStr) {
       })
   }
 
-  var dropArea = document.getElementById('dropArea');
 
-  ;['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-    dropArea.addEventListener(eventName, preventDefaults, false)
-  });
-
-  ;['dragenter', 'dragover'].forEach(eventName => {
-    dropArea.addEventListener(eventName, highlight, false)
-  });
-
-  ;['dragleave', 'drop'].forEach(eventName => {
-    dropArea.addEventListener(eventName, unhighlight, false)
-  })
-
-  dropArea.addEventListener('drop', handleDrop, false)
-
-
-
+  // ---------------------------------------------------------------------------------
+  // Form validation
+  //
   function reValidate(){
 
     if (this.value && this.value !== ''){
@@ -166,12 +153,29 @@ function updateSvgColor(svgElm, colorStr) {
     elm.oninput = reValidate;
   })
 
-  function performClick(elemId) {
-    var elem = document.getElementById(elemId);
-    if(elem && document.createEvent) {
-        var evt = document.createEvent("MouseEvents");
-        evt.initEvent("click", false, false);
-        elem.dispatchEvent(evt);
-    }
-  }
+  // ---------------------------------------------------------------------------------
+  // DRAG & DROP feature
+  //
+  // ;['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+  //   dropArea.addEventListener(eventName, preventDefaults, false)
+  // });
+
+  // ;['dragenter', 'dragover'].forEach(eventName => {
+  //   dropArea.addEventListener(eventName, highlight, false)
+  // });
+
+  // ;['dragleave', 'drop'].forEach(eventName => {
+  //   dropArea.addEventListener(eventName, unhighlight, false)
+  // })
+
+  // dropArea.addEventListener('drop', handleDrop, false)
+  // function handleDrop(e) {
+  //   dropArea.classList.add("purple-border")
+  //   dropArea.classList.remove("red-border")
+    
+  //   var dt = e.dataTransfer
+  //   var files = dt.files
+
+  //   handleFiles(files)
+  // }
 </script>
